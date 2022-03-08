@@ -350,9 +350,6 @@ export default function HeaderLayout() {
                                     <a href='/contact'>Contact Us</a>
                                 </li>
                                 <li className='chat' role='menuitem'>
-                                    {/* BEGIN ProvideSupport.com Text Chat Link Code */}
-                                    {/* <div id="ciIZOj" style={{zIndex: 100, position: 'absolute'}} /><div id="scIZOj" style={{display: 'inline'}}><a href="#" onclick="psIZOjow(); return false;" alt="Live chat offline" title="Live chat offline" aria-label="Live chat offline"><span id="psIZOjl"><span className="offline">Chat Offline</span></span></a></div><div id="sdIZOj" style={{display: 'none'}} /><noscript>&lt;div style="display:inline"&gt;&lt;a href="http://www.providesupport.com?messenger=172ejj0988vpv0bymlafavhsrq"&gt;Live Help Chat&lt;/a&gt;&lt;/div&gt;</noscript> */}
-                                    {/* END ProvideSupport.com Text Chat Link Code */}
                                 </li>
                                 <li
                                     role='menuitem'
