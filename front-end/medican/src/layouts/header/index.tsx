@@ -376,7 +376,7 @@ export default function HeaderLayout() {
                                     </ul>
                                 </li>
                                 <li className='user-nav-account show-for-medium' role='menuitem'>
-                                    <a href='/login'>Login</a>
+                                    <Link to='/login'>Login</Link>
                                     <a href='/profile/register' id='user-nav-register'>
                                         Register
                                     </a>
