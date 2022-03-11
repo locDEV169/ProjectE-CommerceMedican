@@ -8,8 +8,10 @@ export function MainLayout({ children }: { children: ReactNode }) {
         <div style={{ position: 'relative', minHeight: '100%F', top: '0' }}>
             <div id='sticky-layout'>
                 <HeaderLayout />
-                <div className='stripe'>
+                <div className='stripe shadow'>
+                    <div className='row'>
                         {children}
+                    </div>
                 </div>
             </div>
             <FooterLayout />

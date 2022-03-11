@@ -1,15 +1,24 @@
-import { default as React } from 'react'
-import './style.scss'
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Checkbox, Form, Input } from 'antd';
+import 'antd/dist/antd.css';
+import { default as React } from 'react';
+import { Link } from 'react-router-dom';
+import './style.scss';
+
+interface User {
+    username: string
+    password: string
+}
 
 export default function LoginPage() {
+    const onFinish = (values: User) => { console.log(values) }
+
     return (
+
         <div id='article'>
             <div className="grid-x grid-margin-x">
                 <div className="large-8 cell">
-
-
                     <h2>Benefits to Being a Registered Labconco User</h2>
-
                     <ul>
                         <li><strong>Download information</strong>. One registration provides immediate access to hundreds of PDFs, CAD drawings and more.</li>
                         <li><strong>Save time</strong>. No need to re-enter your information; simply login to quickly download documents and complete forms.</li>
@@ -22,34 +31,58 @@ export default function LoginPage() {
                 <div className="large-4 cell">
                     <div className="callout secondary">
                         <h5>Log in to Labconco</h5>
-                        <form action="https://www.labconco.com/login" id="login_form" className="" data-abide="" method="post" accept-charset="utf-8" data-e="d6mpxq-e">
+                        <Form
+                            name="normal_login"
+                            className="login-form"
+                            initialValues={{
+                                remember: true,
+                            }}
+                            onFinish={onFinish}
+                        >
+                            <Form.Item
+                                name="username"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your Username!',
+                                    },
+                                ]}
+                            >
+                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                            </Form.Item>
+                            <Form.Item
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your Password!',
+                                    },
+                                ]}
+                            >
+                                <Input.Password
+                                    prefix={<LockOutlined className="site-form-item-icon" />}
+                                    type="password"
+                                    placeholder="Password"
+                                />
+                            </Form.Item>
+                            <Form.Item>
+                                <Form.Item name="remember" valuePropName="checked" noStyle>
+                                    <Checkbox>Remember me</Checkbox>
+                                </Form.Item>
 
-                            <div data-abide-error="" className="alert callout" style={{ display: 'none' }}>
-                                <p><i className="material-icons">error</i> Please review the information you provided.</p>
-                            </div>
-
-                            <div className="row">
-                                <div className="columns">
-                                    <label>Email
-                                        <input id="email" name="email" type="text" value="" pattern="email" />
-                                        <span className="form-error">Email address is required.</span>
-                                    </label>
-                                </div>
-                                <div className="columns">
-                                    <a href="https://www.labconco.com/profile/forgot_password" className="show-for-medium" style={{ fontSize: '0.7em', float: 'right' }}>Forgot or don't know your password?</a>
-                                    <label>Password
-                                        <input id="password" name="password" type="password" value="" />
-                                        <span className="form-error">Password is required.</span>
-                                    </label>
-                                    <div className="show-for-small-only"><a href="/profile/forgot_password">Forgot or don't know password?</a></div>
-                                </div>
-                                <div className="columns">
-                                    <input type="submit" value="Log in" name="login" className="show-for-medium button" />
-                                    <input type="submit" value="Log in" name="login" className="show-for-small-only button expanded" />
-                                    <p>Not Registered? <a href="https://www.labconco.com/profile/register">Register now!</a></p>
-                                </div>
-                            </div>
-                        </form>
+                                <Link className="login-form-forgot" to="/">
+                                    Forgot password
+                                </Link>
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit" className="login-form-button">
+                                    Log in
+                                </Button>
+                            </Form.Item>
+                            Or <Link className="login-form-forgot" to="/">
+                                Register
+                            </Link>
+                        </Form>
                     </div>
                 </div>
             </div>
