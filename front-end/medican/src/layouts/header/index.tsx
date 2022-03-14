@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/role-supports-aria-props */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import 'antd/dist/antd.css';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './style.scss';
 // import CardView from '../../components/card-view'
 // import { SLUG_URL } from '../../constants/slug'
 interface CategoryData {
@@ -19,6 +21,7 @@ function MenuView(categoryData: CategoryData) {
                 </li>
     )
 }
+
 export default function HeaderLayout() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const CATEGORIES_API = `categories`
@@ -88,28 +91,24 @@ export default function HeaderLayout() {
                                 role='menubar'
                                 data-e='vb0tgc-e'>
                                 <li className='show-for-medium' role='menuitem'>
-                                    <a href='/company' className='user-nav-about'>
+                                    <a href='/' className='user-nav-about'>
                                         About Labconco
                                     </a>
                                 </li>
                                 <li className='show-for-medium' role='menuitem'>
-                                    <a href='/careers'>Careers</a>
-                                </li>
-                                <li className='show-for-medium' role='menuitem'>
-                                    <a href='/contact'>Contact Us</a>
-                                </li>
-                                <li className='chat' role='menuitem'>
+                                    <a href='/'>Contact Us</a>
                                 </li>
                                 <li
                                     role='menuitem'
                                     className='is-dropdown-submenu-parent opens-left'
                                     aria-haspopup='true'
                                     aria-label='Cart'>
-                                    <a href='/#' className='user-nav-cart' data-toggle='mini-cart'>
+                                    <div className='hover-button'>
+                                    <a href='/#' className='user-nav-cart hover-button--off' data-toggle='mini-cart'>
                                         Cart
                                     </a>
                                     <ul
-                                        className='menu submenu is-dropdown-submenu first-sub vertical'
+                                        className='menu submenu is-dropdown-submenu first-sub vertical hover-button--on'
                                         id='mini-cart'
                                         data-submenu
                                         role='menu'>
@@ -120,6 +119,7 @@ export default function HeaderLayout() {
                                             <a href='/quote'>Items for Quote: 0</a>
                                         </li>
                                     </ul>
+                                    </div>
                                 </li>
                                 <li className='user-nav-account show-for-medium' role='menuitem'>
                                     <Link to='/login'>Login</Link>
