@@ -193,7 +193,7 @@ export default function HeaderLayout() {
                             <a href="/services">Services</a>
                         </li>
                         <li>
-                            <a href="/search/search-results.php">
+                            <a href="/#">
                                 <i className="fa fa-search" />
                             </a>
                         </li>

@@ -17,7 +17,7 @@ export function MainRoutes() {
                     <Route exact path='/category/:slug/:id' component={DetailCategoryPage} /> */}
                     <Route exact path='/login' component={LoginPage} />
                 </MainLayout>
-                {/* <Route path='*' exact component={ErrorPage} /> */}
+               {/* <Route path='*' exact component={ErrorPage} /> */}
             </Switch>
         </Suspense>
     )
