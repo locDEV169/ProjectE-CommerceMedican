@@ -11,10 +11,10 @@ public class UserInfoResponse {
     private String phoneNumber;
 
 
-
+    private String accessToken;
     private List<String> roles;
 
-    public UserInfoResponse(Long id, String username, String email, String fullName, String address, String phoneNumber, List<String> roles) {
+    public UserInfoResponse(Long id, String username, String email, String fullName, String address, String phoneNumber, List<String> roles, String accessToken) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -22,6 +22,7 @@ public class UserInfoResponse {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.roles = roles;
+        this.accessToken = accessToken;
     }
 
     public String getAddress() {
@@ -78,5 +79,13 @@ public class UserInfoResponse {
 
     public List<String> getRoles() {
         return roles;
+    }
+
+    public String getToken() {
+        return accessToken;
+    }
+
+    public void setToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

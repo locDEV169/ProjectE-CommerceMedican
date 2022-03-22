@@ -34,17 +34,22 @@ public class User {
     @NotBlank
     @Size(max = 100)
     private String fullName;
+    @NotBlank
+    private String accessToken;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-public  User(){}
+
+    public User() {
+    }
+
     public User(String username, String email, String encode, String fullName, String address, String phoneNumber) {
     }
 
-    public User(String username, String email, String password, String address, String phoneNumber, String fullName, Set<Role> roles) {
+    public User(String username, String email, String password, String address, String phoneNumber, String fullName, Set<Role> roles, String token) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -52,6 +57,7 @@ public  User(){}
         this.phoneNumber = phoneNumber;
         this.fullName = fullName;
         this.roles = roles;
+        this.accessToken = token;
     }
 
     public Long getId() {
@@ -116,5 +122,13 @@ public  User(){}
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getToken() {
+        return accessToken;
+    }
+
+    public void setToken(String token) {
+        this.accessToken = token;
     }
 }
