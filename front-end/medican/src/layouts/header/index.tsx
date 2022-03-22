@@ -1,7 +1,9 @@
+/* eslint-disable no-lone-blocks */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/role-supports-aria-props */
 /* eslint-disable jsx-a11y/alt-text */
 import "antd/dist/antd.css";
+import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.scss";
@@ -25,7 +27,19 @@ function MenuView(categoryData: CategoryData) {
 export default function HeaderLayout() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const CATEGORIES_API = `categories`;
-    const [isloading, setisloading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const getUserName = Cookies.get("username");
+
+    // useEffect(() => {
+    //     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    //     {Cookies.get("username") ? message.success("Login Successful") : ""}
+    // }, []);
+
+    const logOut = () => {
+        Cookies.remove("username");
+        Cookies.remove("token");
+        window.location.href = "/logout";
+    };
 
     return (
         <>
@@ -152,18 +166,36 @@ export default function HeaderLayout() {
                                         </ul>
                                     </div>
                                 </li>
-                                <li
-                                    className="user-nav-account show-for-medium"
-                                    role="menuitem"
-                                >
-                                    <Link to="/login">Login</Link>
-                                    <a
-                                        href="/profile/register"
-                                        id="user-nav-register"
+                                {getUserName ? (
+                                    <li
+                                        className="user-nav-account show-for-medium"
+                                        role="menuitem"
                                     >
-                                        Register
-                                    </a>
-                                </li>{" "}
+                                        <Link to='/logout' onClick={() => logOut()}>Logout</Link>
+                                        <a
+                                            href="/profile"
+                                            id="user-nav-account"
+                                            onClick={(events) =>
+                                                events.preventDefault()
+                                            }
+                                        >
+                                            Hi,{getUserName}
+                                        </a>
+                                    </li>
+                                ) : (
+                                    <li
+                                        className="user-nav-account show-for-medium"
+                                        role="menuitem"
+                                    >
+                                        <Link to="/login">Login</Link>
+                                        <a
+                                            href="/profile/register"
+                                            id="user-nav-register"
+                                        >
+                                            Register
+                                        </a>
+                                    </li>
+                                )}{" "}
                             </ul>
                         </div>
                     </div>
@@ -176,7 +208,7 @@ export default function HeaderLayout() {
                     </Link>
                     <ul className="menu float-right" id="top-nav">
                         <li>
-                            <a onClick={() => setisloading(!isloading)}>
+                            <a onClick={() => setIsLoading(!isLoading)}>
                                 Products
                             </a>
                         </li>
@@ -200,7 +232,7 @@ export default function HeaderLayout() {
                     </ul>
                 </div>
             </div>
-            {isloading && (
+            {isLoading && (
                 <div
                     id="products-nav"
                     className="top-nav-panel"

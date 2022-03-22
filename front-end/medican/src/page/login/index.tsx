@@ -1,8 +1,10 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import "antd/dist/antd.css";
+import Cookies from "js-cookie";
 import { default as React } from "react";
 import { Link } from "react-router-dom";
+import api from "../../constants/api";
 import "./style.scss";
 
 interface User {
@@ -10,9 +12,72 @@ interface User {
     password: string;
 }
 
+interface ErrorType {
+    response: {
+        status?: number;
+        data: {
+            message: [{ field: string; message: string }];
+        };
+    };
+}
+interface LoginType {
+    data: { username: string; expireIn: number; token: string };
+}
+
 export default function LoginPage() {
-    const onFinish = (values: User) => {
-        return message.info(`Username: ${values.username}`);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [form] = Form.useForm();
+
+    function onFinish(values: User) {
+        api.post("auth/signin", values)
+            .then((res: LoginType) => {
+                setCookie("username", res.data.username, parseJwt(res.data.token));
+                setCookie("accessToken", res.data.token, parseJwt(res.data.token));
+                message.success("Login Successful");
+                window.location.href = '/'
+            })
+            .catch((errors: ErrorType) => handlerError(errors));
+    }
+
+    const handlerError = (err: ErrorType) => {
+        const status = err.response?.status;
+        switch (status) {
+            case 400:
+                message.error("Invalid username or password");
+                break;
+            case 401:
+                message.error("Invalid username or password");
+                break;
+            case 500:
+                message.error("Request Login Failed");
+                break;
+            default:
+                message.error("Request Login Failed");
+        }
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    function parseJwt(token: string) {
+        var base64Url = token.split(".")[1];
+        var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        var jsonPayload: any = decodeURIComponent(
+            atob(base64)
+                .split("")
+                .map(function (c) {
+                    return (
+                        "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
+                    );
+                })
+                .join("")
+        );
+
+        return JSON.parse(jsonPayload).exp;
+    }
+
+    const setCookie = (username: string, value: string, expires: number) => {
+        const date = new Date();
+        date.setTime(date.getTime() + expires);
+        Cookies.set(username, value, { expires: date, path: "/" });
     };
 
     return (
@@ -45,9 +110,6 @@ export default function LoginPage() {
                         <Form
                             name="normal_login"
                             className="login-form"
-                            initialValues={{
-                                remember: true,
-                            }}
                             onFinish={onFinish}
                         >
                             <Form.Item
@@ -115,4 +177,11 @@ export default function LoginPage() {
             </div>
         </div>
     );
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function mess(message: string, description?: string) {
+    // notification.error({
+    //     message: message,
+    //     description: description,
+    // });
 }
