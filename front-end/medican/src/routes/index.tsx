@@ -4,6 +4,7 @@ import { MainLayout } from '../layouts'
 
 const HomePage = React.lazy(() => import('../page/home'))
 const LoginPage = React.lazy(() => import('../page/login'))
+const LogoutPage = React.lazy(() => import('../page/logout'))
 
 export function MainRoutes() {
     return (
@@ -16,6 +17,7 @@ export function MainRoutes() {
                     <Route exact path='/category' component={CategoryPage} />
                     <Route exact path='/category/:slug/:id' component={DetailCategoryPage} /> */}
                     <Route exact path='/login' component={LoginPage} />
+                    <Route exact path='/logout' component={LogoutPage} />
                 </MainLayout>
                {/* <Route path='*' exact component={ErrorPage} /> */}
             </Switch>
