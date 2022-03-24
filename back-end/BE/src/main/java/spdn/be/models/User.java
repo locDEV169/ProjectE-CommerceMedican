@@ -34,7 +34,7 @@ public class User {
     @NotBlank
     @Size(max = 100)
     private String fullName;
-    @NotBlank
+
     private String accessToken;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -47,18 +47,23 @@ public class User {
     }
 
     public User(String username, String email, String encode, String fullName, String address, String phoneNumber) {
-    }
-
-    public User(String username, String email, String password, String address, String phoneNumber, String fullName, Set<Role> roles, String token) {
         this.username = username;
         this.email = email;
-        this.password = password;
+        this.password = encode;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.fullName = fullName;
-        this.roles = roles;
-        this.accessToken = token;
     }
+
+//    public User(String username, String email, String encode,String fullName, String address, String phoneNumber,String token) {
+//        this.username = username;
+//        this.email = email;
+//        this.password = encode;
+//        this.address = address;
+//        this.phoneNumber = phoneNumber;
+//        this.fullName = fullName;
+//        this.accessToken = token;
+//    }
 
     public Long getId() {
         return id;
