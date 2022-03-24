@@ -55,16 +55,6 @@ public class User {
         this.fullName = fullName;
     }
 
-//    public User(String username, String email, String encode,String fullName, String address, String phoneNumber,String token) {
-//        this.username = username;
-//        this.email = email;
-//        this.password = encode;
-//        this.address = address;
-//        this.phoneNumber = phoneNumber;
-//        this.fullName = fullName;
-//        this.accessToken = token;
-//    }
-
     public Long getId() {
         return id;
     }
