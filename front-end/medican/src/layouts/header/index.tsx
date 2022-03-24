@@ -188,12 +188,12 @@ export default function HeaderLayout() {
                                         role="menuitem"
                                     >
                                         <Link to="/login">Login</Link>
-                                        <a
-                                            href="/profile/register"
+                                        <Link
+                                            to="/register"
                                             id="user-nav-register"
                                         >
                                             Register
-                                        </a>
+                                        </Link>
                                     </li>
                                 )}{" "}
                             </ul>

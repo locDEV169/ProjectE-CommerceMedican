@@ -28,7 +28,7 @@ export default function LoginPage() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [form] = Form.useForm();
 
-    function onFinish(values: User) {
+    const onFinish = (values: User) => {
         api.post("auth/signin", values)
             .then((res: LoginType) => {
                 setCookie("username", res.data.username, parseJwt(res.data.token));
