@@ -18,7 +18,7 @@ interface ErrorType {
     response: {
         status?: number;
         data: {
-            message: [{ field: string; message: string }];
+            message: string;
         };
     };
 }
@@ -32,11 +32,9 @@ export default function RegisterPage() {
     const [form] = Form.useForm();
 
     const onFinish = (values: User) => {
-        console.log(values);
         api.post("auth/signup", { ...values, role: ["user"] })
             .then((res: RegisterType) => {
-                console.log(res);
-                message.success("Register Successful");
+                message.success("User registered successfully!");
                 // window.location.href = '/'
             })
             .catch((errors: ErrorType) => handlerError(errors));
@@ -46,7 +44,7 @@ export default function RegisterPage() {
         const status = err.response?.status;
         switch (status) {
             case 400:
-                message.error("Invalid username or password");
+                message.error(err.response.data.message);
                 break;
             case 401:
                 message.error("Invalid username or password");
