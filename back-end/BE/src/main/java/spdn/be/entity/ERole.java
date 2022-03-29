@@ -1,4 +1,4 @@
-package spdn.be.models;
+package spdn.be.entity;
 
 public enum ERole {
     ROLE_USER,

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
 import io.jsonwebtoken.*;
-    import spdn.be.sercurity.services.UserDetailsImpl;
+    import spdn.be.sercurity.services.impl.UserDetailsImpl;
 
 @Component
     public class JwtUtils {

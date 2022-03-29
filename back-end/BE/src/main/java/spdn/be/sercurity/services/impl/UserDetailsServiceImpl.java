@@ -1,4 +1,4 @@
-package spdn.be.sercurity.services;
+package spdn.be.sercurity.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,8 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import spdn.be.models.User;
+import spdn.be.entity.User;
 import spdn.be.repository.UserRepository;
+import spdn.be.sercurity.services.impl.UserDetailsImpl;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
