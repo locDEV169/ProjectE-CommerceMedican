@@ -47,13 +47,13 @@ export default function RegisterPage() {
                 message.error(err.response.data.message);
                 break;
             case 401:
-                message.error("Invalid username or password");
+                message.error("Invalid Register.Check form register");
                 break;
             case 500:
-                message.error("Request Login Failed");
+                message.error("Request Register Failed");
                 break;
             default:
-                message.error("Request Login Failed");
+                message.error("Request Register Failed");
         }
     };
 
