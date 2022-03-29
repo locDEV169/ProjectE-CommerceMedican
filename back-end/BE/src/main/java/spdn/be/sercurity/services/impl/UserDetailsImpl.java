@@ -1,4 +1,4 @@
-package spdn.be.sercurity.services;
+package spdn.be.sercurity.services.impl;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import spdn.be.models.User;
+import spdn.be.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;

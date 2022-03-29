@@ -1,4 +1,4 @@
-package spdn.be.models;
+package spdn.be.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

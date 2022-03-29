@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import spdn.be.sercurity.jwt.AuthTokenFilter;
 import spdn.be.sercurity.jwt.AuthEntryPointJwt;
-import spdn.be.sercurity.services.UserDetailsServiceImpl;
+import spdn.be.sercurity.services.impl.UserDetailsServiceImpl;
 
 
 @Configuration
