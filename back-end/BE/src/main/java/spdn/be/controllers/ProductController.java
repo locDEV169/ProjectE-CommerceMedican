@@ -8,7 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import spdn.be.dto.ProductDto;
 import spdn.be.entity.Product;
+import spdn.be.exception.ErrorMessages;
+import spdn.be.exception.RequestException;
 import spdn.be.sercurity.services.ProductService;
 
 import javax.validation.Valid;
@@ -31,12 +34,35 @@ public class ProductController {
     }
 
     @PostMapping("/create-product")
-    public ResponseEntity<?> addProduct(@Valid @RequestBody Product product) {
+    public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
         productService.addProduct(product);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getProductId())
                 .toUri();
-
+        ResponseEntity.created(location).build();
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/delete-product/{id}")
+    public ResponseEntity<Product> deleteProduct(@PathVariable Long id) {
+        Product product = productService.findProductById(id);
+        if (product == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        this.productService.deleteProductById(product.getProductId());
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @PutMapping("/edit-product/{id}")
+    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto body, @PathVariable Long id) {
+        try {
+            ProductDto product = productService.updateProduct(body, id);
+            return ResponseEntity.status(HttpStatus.OK).body(product);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RequestException((ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessages()));
+        }
+
     }
 
 }

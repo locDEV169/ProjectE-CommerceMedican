@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -43,6 +42,9 @@ public class Product {
     @UpdateTimestamp
     private LocalDate updateDate;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "attribute_id" , referencedColumnName = "attributeId")
+    @JoinColumn(name = "attribute_id", referencedColumnName = "attributeId")
     private Attribute attribute;
+    @ManyToOne(targetEntity = SubCategory.class)
+    @JoinColumn(name = "subcategory_id")
+    public SubCategory subCategory;
 }
