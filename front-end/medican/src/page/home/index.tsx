@@ -12,11 +12,12 @@ import FooterLayout from "../../layouts/footer";
 import HeaderLayout from "../../layouts/header";
 import "./style.scss";
 import { SliderData } from './../../components/image-slider/SliderData';
+import CardView from './../../components/card-view/index';
 
 interface ProductData {
     id?: number | string;
-    name?: string;
-    note?: string;
+    productName?: string;
+    description?: string;
     image?: string;
 }
 
@@ -32,16 +33,16 @@ function cardView(cardData: ProductData) {
                     />
                 </Link>
                 <h5>
-                    <Link to={`/}`}>{cardData.name}</Link>
+                    <Link to={`/}`} style={{textTransform: 'capitalize'}}>{cardData.productName}</Link>
                 </h5>
-                <p>{cardData.note}</p>
+                <p>{cardData.description}</p>
             </div>
         </div>
     );
 }
 
 export default function HomePage() {
-    const PRODUCT_API = `products`;
+    const PRODUCT_API = `/products/list-products`;
     const numberRenderProduct = 4;
     return (
         <Fragment>
@@ -52,7 +53,7 @@ export default function HomePage() {
                 <div className="row">
                     <section id="featured-products" className="article">
                         <div className="grid-x grid-margin-x small-up-1 medium-up-2 large-up-4">
-                            {/* <CardView cardView={cardView} urlApi={PRODUCT_API} lengthRender={numberRenderProduct} /> */}
+                            <CardView cardView={cardView} urlApi={PRODUCT_API} lengthRender={numberRenderProduct} />
                         </div>
                     </section>
                 </div>
