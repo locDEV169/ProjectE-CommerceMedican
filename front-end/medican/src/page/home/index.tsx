@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
 import { default as React, Fragment } from "react";
-import ReactHtmlParser from 'react-html-parser';
+import ReactHtmlParser from "react-html-parser";
 import { Link } from "react-router-dom";
 import "react-slideshow-image/dist/styles.css";
 import ImageSlider from "../../components/image-slider/ImageSlider";
@@ -10,8 +10,8 @@ import ImageSlider from "../../components/image-slider/ImageSlider";
 // import BannerLayout from '../../layouts/banner'
 import FooterLayout from "../../layouts/footer";
 import HeaderLayout from "../../layouts/header";
-import CardView from './../../components/card-view/index';
-import { SliderData } from './../../components/image-slider/SliderData';
+import CardView from "./../../components/card-view/index";
+import { SliderData } from "./../../components/image-slider/SliderData";
 import "./style.scss";
 
 interface ProductData {
@@ -33,10 +33,20 @@ function cardView(cardData: ProductData) {
                     />
                 </Link>
                 <h5>
-                    <Link to={`/}`} style={{textTransform: 'capitalize'}}>{cardData.productName}</Link>
+                    <Link to={`/}`} style={{ textTransform: "capitalize" }}>
+                        {cardData.productName}
+                    </Link>
                 </h5>
-                <p>{ReactHtmlParser(cardData.description || '')}</p>
+                <p>{ReactHtmlParser(cardData.description || "")}</p>
             </div>
+        </div>
+    );
+}
+
+function service() {
+    return (
+        <div className="stripe shadow">
+            <div className="row"></div>
         </div>
     );
 }
@@ -53,7 +63,11 @@ export default function HomePage() {
                 <div className="row">
                     <section id="featured-products" className="article">
                         <div className="grid-x grid-margin-x small-up-1 medium-up-2 large-up-4">
-                            <CardView cardView={cardView} urlApi={PRODUCT_API} lengthRender={numberRenderProduct} />
+                            <CardView
+                                cardView={cardView}
+                                urlApi={PRODUCT_API}
+                                lengthRender={numberRenderProduct}
+                            />
                         </div>
                     </section>
                 </div>

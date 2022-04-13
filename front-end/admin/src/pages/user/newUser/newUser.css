@@ -9,9 +9,8 @@
 
 .newUserItem {
     width: 400px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
+    /* display: flex;
+    flex-direction: column; */
     margin-right: 20px;
 }
 
@@ -53,7 +52,7 @@
     padding: 7px 10px;
     font-weight: 600;
     border-radius: 10px;
-    margin-top: 30px;
+    margin-top: 40px;
     cursor: pointer;
 }
 .newUserItem .ant-form-item {

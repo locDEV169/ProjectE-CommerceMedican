@@ -1,5 +1,11 @@
-import { Form, message, Input, Select } from "antd";
-import "antd/dist/antd.css";
+import { default as Form } from "antd/es/form";
+import "antd/es/form/style/index.css";
+import { default as Input } from "antd/es/input";
+import "antd/es/input/style/index.css";
+import { default as message } from 'antd/es/message';
+import 'antd/es/message/style/index.css';
+import { default as Select } from 'antd/es/select';
+import 'antd/es/select/style/css';
 import api from "./../../../constants/api";
 import "./newUser.css";
 
@@ -159,6 +165,12 @@ export default function NewUser() {
                     <Form.Item
                         label="Active"
                         name="role"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your role!",
+                            },
+                        ]}
                         style={{ borderRadius: "10px" }}
                     >
                         <Select placeholder="Select a role for User" allowClear>
