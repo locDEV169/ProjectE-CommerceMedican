@@ -3,7 +3,7 @@ import { DeleteOutline, EditOutlined } from "@material-ui/icons";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { productRows } from "../../dummyData";
+import { productRows } from "../../../dummyData";
 import "./productList.css";
 
 export default function ProductList() {
