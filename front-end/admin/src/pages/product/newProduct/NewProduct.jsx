@@ -62,7 +62,6 @@ export default function NewProduct() {
                     message: "Catalog has been added Successfully",
                     icon: <SmileOutlined style={{ color: "#108ee9" }} />,
                 });
-                history.goBack();
             })
             .catch((err) => {
                 handleError(err);

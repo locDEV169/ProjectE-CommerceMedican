@@ -116,7 +116,7 @@ export default function RegisterPage() {
                                         {
                                             pattern: /^.{3,20}$/,
                                             message:
-                                                "Password must be minimum 3 characters, maximum of 20 characters,",
+                                                "Username must be minimum 3 characters, maximum of 20 characters,",
                                         },
                                     ]}
                                 >

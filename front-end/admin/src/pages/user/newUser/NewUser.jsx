@@ -1,69 +1,174 @@
+import { Form, message, Input, Select } from "antd";
+import "antd/dist/antd.css";
+import api from "./../../../constants/api";
 import "./newUser.css";
 
+const { Option } = Select;
 export default function NewUser() {
+    const [form] = Form.useForm();
+
+    const onFinish = (values) => {
+        console.log(values);
+        api.post("auth/signup", { values })
+            .then((res) => {
+                message.success("User registered successfully!");
+                // window.location.href = '/'
+            })
+            .catch((errors: ErrorType) => handlerError(errors));
+    };
+
+    const handlerError = (err: ErrorType) => {
+        const status = err.response?.status;
+        switch (status) {
+            case 400:
+                message.error(err.response.data.message);
+                break;
+            case 401:
+                message.error("Invalid Register.Check form register");
+                break;
+            case 500:
+                message.error("Request Register Failed");
+                break;
+            default:
+                message.error("Request Register Failed");
+        }
+    };
+
     return (
         <div className="newUser">
             <h1 className="newUserTitle">New User</h1>
-            <form className="newUserForm">
+            <Form className="newUserForm" onFinish={onFinish} form={form}>
                 <div className="newUserItem">
-                    <label>Username</label>
-                    <input type="text" placeholder="john" />
-                </div>
-                <div className="newUserItem">
-                    <label>Full Name</label>
-                    <input type="text" placeholder="John Smith" />
-                </div>
-                <div className="newUserItem">
-                    <label>Email</label>
-                    <input type="email" placeholder="john@gmail.com" />
-                </div>
-                <div className="newUserItem">
-                    <label>Password</label>
-                    <input type="password" placeholder="password" />
-                </div>
-                <div className="newUserItem">
-                    <label>Phone</label>
-                    <input type="text" placeholder="+1 123 456 78" />
-                </div>
-                <div className="newUserItem">
-                    <label>Address</label>
-                    <input type="text" placeholder="New York | USA" />
-                </div>
-                <div className="newUserItem">
-                    <label>Gender</label>
-                    <div className="newUserGender">
-                        <input
-                            type="radio"
-                            name="gender"
-                            id="male"
-                            value="male"
+                    <Form.Item
+                        name="username"
+                        label="User Name"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your Username!",
+                            },
+                            {
+                                pattern: /^.{3,20}$/,
+                                message:
+                                    "Username must be minimum 3 characters, maximum of 20 characters,",
+                            },
+                        ]}
+                    >
+                        <Input
+                            placeholder="Username: abc"
+                            style={{ borderRadius: "10px" }}
                         />
-                        <label for="male">Male</label>
-                        <input
-                            type="radio"
-                            name="gender"
-                            id="female"
-                            value="female"
-                        />
-                        <label for="female">Female</label>
-                        <input
-                            type="radio"
-                            name="gender"
-                            id="other"
-                            value="other"
-                        />
-                        <label for="other">Other</label>
-                    </div>
+                    </Form.Item>
                 </div>
                 <div className="newUserItem">
-                    <label>Active</label>
-                    <select className="newUserSelect" name="active" id="active">
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
+                    <Form.Item
+                        name="fullName"
+                        label="Full Name"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your full name!",
+                            },
+                        ]}
+                    >
+                        <Input
+                            placeholder="Full Name: Nguyen Van A"
+                            style={{ borderRadius: "10px" }}
+                        />
+                    </Form.Item>
+                </div>
+                <div className="newUserItem">
+                    <Form.Item
+                        name="email"
+                        label="E-mail"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your e-mail!",
+                            },
+                            {
+                                type: "email",
+                                message: "The input is not valid E-mail!",
+                            },
+                        ]}
+                    >
+                        <Input
+                            placeholder="abc@email.com"
+                            style={{ borderRadius: "10px" }}
+                        />
+                    </Form.Item>
+                </div>
+                <div className="newUserItem">
+                    <Form.Item
+                        name="password"
+                        label="Password"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your Password!",
+                            },
+                            {
+                                pattern: /^.{6,40}$/,
+                                message:
+                                    "Password must be minimum 6 characters, maximum of 40 characters,",
+                            },
+                        ]}
+                    >
+                        <Input.Password
+                            type="password"
+                            placeholder="Password: abc123"
+                            style={{ borderRadius: "10px" }}
+                        />
+                    </Form.Item>
+                </div>
+                <div className="newUserItem">
+                    <Form.Item
+                        name="phoneNumber"
+                        label="Phone"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your phone!",
+                            },
+                        ]}
+                    >
+                        <Input
+                            placeholder="012346789"
+                            style={{ borderRadius: "10px" }}
+                        />
+                    </Form.Item>
+                </div>
+                <div className="newUserItem">
+                    <Form.Item
+                        name="address"
+                        label="Address"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your address!",
+                            },
+                        ]}
+                    >
+                        <Input
+                            placeholder="Viet Nam"
+                            style={{ borderRadius: "10px" }}
+                        />
+                    </Form.Item>
+                </div>
+                <div className="newUserItem">
+                    <Form.Item
+                        label="Active"
+                        name="role"
+                        style={{ borderRadius: "10px" }}
+                    >
+                        <Select placeholder="Select a role for User" allowClear>
+                            <Option value="[ROLE_ADMIN]">Admin</Option>
+                            <Option value="[ROLE_USER]">User</Option>
+                        </Select>
+                    </Form.Item>
                 </div>
                 <button className="newUserButton">Create</button>
-            </form>
+            </Form>
         </div>
     );
 }
