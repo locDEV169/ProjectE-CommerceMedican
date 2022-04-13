@@ -4,10 +4,24 @@ import { DeleteOutline, EditOutlined } from "@material-ui/icons";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { userRows } from "../../../dummyData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import api from './../../../constants/api';
 
 export default function UserList() {
     const [data, setData] = useState(userRows);
+    const [state, setState] = useState([]);
+
+    async function getDataList() {
+        try {
+            const response = await api.get(`/products/list-products`)
+            const { content: dataProduct } = response.data
+            setState((prev) => ({ ...prev, dataProduct }))
+        } catch (err) {}
+    }
+    console.log(state)
+    useEffect(() => {
+        getDataList()
+    }, []);
 
     const handleDelete = (id) => {
         setData(data.filter((item) => item.id !== id));
@@ -33,16 +47,6 @@ export default function UserList() {
             },
         },
         { field: "email", headerName: "Email", width: 200 },
-        // {
-        //     field: "status",
-        //     headerName: "Status",
-        //     width: 120,
-        // },
-        // {
-        //     field: "transaction",
-        //     headerName: "Transaction Volume",
-        //     width: 160,
-        // },
         {
             field: "action",
             headerName: "Action",
