@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
-import { Slider } from "antd";
 import { default as React, Fragment } from "react";
+import ReactHtmlParser from 'react-html-parser';
 import { Link } from "react-router-dom";
 import "react-slideshow-image/dist/styles.css";
 import ImageSlider from "../../components/image-slider/ImageSlider";
@@ -10,9 +10,9 @@ import ImageSlider from "../../components/image-slider/ImageSlider";
 // import BannerLayout from '../../layouts/banner'
 import FooterLayout from "../../layouts/footer";
 import HeaderLayout from "../../layouts/header";
-import "./style.scss";
-import { SliderData } from './../../components/image-slider/SliderData';
 import CardView from './../../components/card-view/index';
+import { SliderData } from './../../components/image-slider/SliderData';
+import "./style.scss";
 
 interface ProductData {
     id?: number | string;
@@ -35,7 +35,7 @@ function cardView(cardData: ProductData) {
                 <h5>
                     <Link to={`/}`} style={{textTransform: 'capitalize'}}>{cardData.productName}</Link>
                 </h5>
-                <p>{cardData.description}</p>
+                <p>{ReactHtmlParser(cardData.description || '')}</p>
             </div>
         </div>
     );
