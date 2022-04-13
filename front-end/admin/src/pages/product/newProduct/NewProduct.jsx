@@ -15,7 +15,7 @@ import "antd/es/input/style/index.css";
 import "antd/es/notification/style/index.css";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import api from "./../../constants/api";
+import api from "../../../constants/api";
 import "./newProduct.css";
 
 export default function NewProduct() {

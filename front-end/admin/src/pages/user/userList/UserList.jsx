@@ -2,7 +2,7 @@ import "./userList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline, EditOutlined } from "@material-ui/icons";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import { userRows } from "../../dummyData";
+import { userRows } from "../../../dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
