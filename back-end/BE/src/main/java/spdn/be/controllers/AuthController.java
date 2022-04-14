@@ -19,7 +19,7 @@ import spdn.be.payload.response.MessageResponse;
 import spdn.be.payload.response.UserInfoResponse;
 import spdn.be.repository.RoleRepository;
 import spdn.be.repository.UserRepository;
-import spdn.be.sercurity.jwt.JwtUtils;
+import spdn.be.sercurity.utils.JwtUtils;
 import spdn.be.sercurity.services.impl.UserDetailsImpl;
 
 import javax.validation.Valid;
