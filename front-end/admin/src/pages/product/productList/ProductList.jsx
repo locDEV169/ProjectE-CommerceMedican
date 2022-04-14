@@ -1,20 +1,34 @@
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline, EditOutlined } from "@material-ui/icons";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { productRows } from "../../../dummyData";
+import api from "./../../../constants/api";
 import "./productList.css";
 
 export default function ProductList() {
     const [data, setData] = useState(productRows);
+    const [state, setState] = useState({ dataProduct: [] });
+
+    async function getDataList() {
+        try {
+            const response = await api.get(`/products/list-products`);
+            const { content: dataProduct } = response.data;
+            setState((prev) => ({ ...prev, dataProduct: dataProduct }));
+        } catch (err) {}
+    }
+
+    useEffect(() => {
+        getDataList();
+    }, []);
 
     const handleDelete = (id) => {
         setData(data.filter((item) => item.id !== id));
     };
 
     const columns = [
-        { field: "id", headerName: "ID", width: 90 },
+        { field: "id", headerName: "Product id", width: 150 },
         {
             field: "product",
             headerName: "Product",
@@ -62,7 +76,7 @@ export default function ProductList() {
             },
         },
     ];
-
+    console.log(state.dataProduct.length);
     return (
         <div className="productList">
             <div className="productTitleContainer">
@@ -75,6 +89,7 @@ export default function ProductList() {
             </div>
             <DataGrid
                 rows={data}
+                id="productId"
                 disableSelectionOnClick
                 columns={columns}
                 pageSize={8}

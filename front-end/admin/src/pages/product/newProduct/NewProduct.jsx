@@ -59,7 +59,7 @@ export default function NewProduct() {
         })
             .then((res) => {
                 notification.success({
-                    message: "Catalog has been added Successfully",
+                    message: "Product has been added Successfully",
                     icon: <SmileOutlined style={{ color: "#108ee9" }} />,
                 });
             })
@@ -140,8 +140,8 @@ export default function NewProduct() {
                                 parseFloat(`${value}`.replace(/\\s?|(,*)/g, ""))
                             }
                         />
-                        <p>For example: Quantity: 120,000</p>
                     </Form.Item>
+                    <p>For example: Quantity: 120,000</p>
                 </div>
                 <div className="addProductItem">
                     <Form.Item
@@ -159,8 +159,7 @@ export default function NewProduct() {
                             {
                                 type: "number",
                                 min: 0,
-                                message:
-                                    "Price cannot enter negative numbers",
+                                message: "Price cannot enter negative numbers",
                             },
                         ]}
                     >
@@ -173,8 +172,8 @@ export default function NewProduct() {
                                 parseFloat(`${value}`.replace(/\\s?|(,*)/g, ""))
                             }
                         />
-                        <p>For example: Price: 120,000USD</p>
                     </Form.Item>
+                    <p>For example: Price: 120,000USD</p>
                 </div>
                 <div className="addProductItem">
                     <Form.Item
@@ -187,9 +186,9 @@ export default function NewProduct() {
                             },
                         ]}
                     >
-                        <Input type="text" placeholder="Enter Country" />
-                        <p>For example: Country: VietNam</p>
+                        <Input type="text" placeholder="Enter catalog name" />
                     </Form.Item>
+                    <p>For example: Country: VietNam</p>
                 </div>
                 <div className="addProductItem">
                     <Form.Item
@@ -206,11 +205,11 @@ export default function NewProduct() {
                             type="text"
                             placeholder="Enter catalog electrical"
                         />
-                        <p>
-                            For example: Electrical: 115V, 60 Hz, 16A (console);
-                            115V, 60 Hz, 16A (tray dryer)A
-                        </p>
                     </Form.Item>
+                    <p>
+                        For example: Electrical: 115V, 60 Hz, 16A (console);
+                        115V, 60 Hz, 16A (tray dryer)A
+                    </p>
                 </div>
                 <div className="addProductItem">
                     <Form.Item
@@ -241,8 +240,8 @@ export default function NewProduct() {
                                 parseFloat(`${value}`.replace(/\\s?|(,*)/g, ""))
                             }
                         />
-                        <p>For example: Weight: 678.0 lbs</p>
                     </Form.Item>
+                    <p>For example: Weight: 678.0 lbs</p>
                 </div>
                 <div className="addProductItem">
                     <Form.Item
@@ -274,8 +273,8 @@ export default function NewProduct() {
                                 parseFloat(`${value}`.replace(/\\s?|(,*)/g, ""))
                             }
                         />
-                        <p>For example: Weight metric: 307.5 kg</p>
                     </Form.Item>
+                    <p>For example: Weight metric: 307.5 kg</p>
                 </div>
 
                 <div className="addProductItem">
@@ -348,7 +347,9 @@ export default function NewProduct() {
                                 />
                             </Form.Item>
                         </div>
-                        <p>For example:Dimensions: 32.4" w x 29.6" d x 63.7" h</p>
+                        <p>
+                            For example:Dimensions: 32.4" w x 29.6" d x 63.7" h
+                        </p>
                     </Form.Item>
                 </div>
                 <div className="addProductItem">
@@ -363,7 +364,6 @@ export default function NewProduct() {
                     >
                         <div className="dimensions">
                             <Form.Item
-                                name="widthMetric"
                                 label="Width Metric"
                                 rules={[
                                     {
@@ -421,10 +421,13 @@ export default function NewProduct() {
                                 />
                             </Form.Item>
                         </div>
-                        <p>For example: Dimensions metric: 82.2 w x 75.1 d x 161.7 h cm</p>
                     </Form.Item>
+                    <p>
+                        For example: Dimensions metric: 82.2 w x 75.1 d x 161.7
+                        h cm
+                    </p>
                 </div>
-                <div className="addProductItem">
+                <div className="addProductItemDescription">
                     <Form.Item
                         label="Description"
                         name="description"
