@@ -2,10 +2,10 @@ import { default as Form } from "antd/es/form";
 import "antd/es/form/style/index.css";
 import { default as Input } from "antd/es/input";
 import "antd/es/input/style/index.css";
-import { default as message } from 'antd/es/message';
-import 'antd/es/message/style/index.css';
-import { default as Select } from 'antd/es/select';
-import 'antd/es/select/style/css';
+import { default as message } from "antd/es/message";
+import "antd/es/message/style/index.css";
+import { default as Select } from "antd/es/select";
+import "antd/es/select/style/css";
 import api from "./../../../constants/api";
 import "./newUser.css";
 
@@ -14,8 +14,7 @@ export default function NewUser() {
     const [form] = Form.useForm();
 
     const onFinish = (values) => {
-        console.log(values);
-        api.post("auth/signup", { values })
+        api.post("auth/signup", { ...values, role: [values.role] })
             .then((res) => {
                 message.success("User registered successfully!");
                 // window.location.href = '/'
@@ -174,8 +173,8 @@ export default function NewUser() {
                         style={{ borderRadius: "10px" }}
                     >
                         <Select placeholder="Select a role for User" allowClear>
-                            <Option value="[ROLE_ADMIN]">Admin</Option>
-                            <Option value="[ROLE_USER]">User</Option>
+                            <Option value="ROLE_ADMIN">Admin</Option>
+                            <Option value="ROLE_USER">User</Option>
                         </Select>
                     </Form.Item>
                 </div>
