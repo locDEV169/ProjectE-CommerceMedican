@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
         ProductDto returnValue = new ProductDto();
         BeanUtils.copyProperties(productUpdate, returnValue);
         returnValue.setSubCategoryName(productUpdate.getSubCategory().getSubCategoryName());
-
+//aaa
         return returnValue;
 
     }

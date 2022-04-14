@@ -51,7 +51,7 @@ public class ProductController {
         this.productService.deleteProductById(product.getProductId());
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
-
+//bug
     @PutMapping("/edit-product/{id}")
     public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto body, @PathVariable Long id) {
         try {
