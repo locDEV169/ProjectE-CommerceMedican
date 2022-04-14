@@ -1,4 +1,4 @@
-package spdn.be.sercurity.jwt;
+package spdn.be.sercurity.utils;
 
 /*getJwtFromCookies: get JWT from Cookies by Cookie name
 generateJwtCookie: generate a Cookie containing JWT from username, date, expiration, secret
