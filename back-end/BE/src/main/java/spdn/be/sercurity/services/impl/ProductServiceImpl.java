@@ -40,6 +40,12 @@ public class ProductServiceImpl implements ProductService {
         productUpdate.setPrice(product.getPrice());
         productUpdate.setDescription(product.getDescription());
         productUpdate.setQuantity(product.getQuantity());
+        productUpdate.setWidth(product.getWidth());
+        productUpdate.setWidthMetric(product.getWidthMetric());
+        productUpdate.setDepth(product.getDepth());
+        productUpdate.setDepthMetric(product.getDepthMetric());
+        productUpdate.setHeight(product.getHeight());
+        productUpdate.setHeightMetric(product.getHeightMetric());
         productUpdate.setAttribute(product.getAttribute());
 
         productRepository.save(productUpdate);
