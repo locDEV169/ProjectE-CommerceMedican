@@ -16,9 +16,9 @@ import spdn.be.sercurity.services.ProductService;
 
 import javax.validation.Valid;
 import java.net.URI;
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/product")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -32,7 +32,11 @@ public class ProductController {
         }
         return new ResponseEntity<>(productPage, HttpStatus.OK);
     }
-
+    @GetMapping("{id}")
+    public  ResponseEntity<Product> getProductById(@PathVariable Long id){
+        Product product = productService.findProductById(id);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
     @PostMapping("/create-product")
     public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
         productService.addProduct(product);
