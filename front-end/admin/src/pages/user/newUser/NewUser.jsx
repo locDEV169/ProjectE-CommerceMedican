@@ -1,15 +1,15 @@
 import { default as Form } from "antd/es/form";
 import "antd/es/form/style/index.css";
-import { default as Input } from "antd/es/input";
-import "antd/es/input/style/index.css";
+import { default as Input } from 'antd/es/input';
+import 'antd/es/input/style/index.css';
 import { default as message } from "antd/es/message";
 import "antd/es/message/style/index.css";
-import { default as Select } from "antd/es/select";
-import "antd/es/select/style/css";
+import { default as Select } from 'antd/es/select';
+import 'antd/es/select/style/index.css';
 import api from "./../../../constants/api";
 import "./newUser.css";
 
-const { Option } = Select;
+const { Option } = Select
 export default function NewUser() {
     const [form] = Form.useForm();
 
@@ -175,6 +175,7 @@ export default function NewUser() {
                         <Select placeholder="Select a role for User" allowClear>
                             <Option value="ROLE_ADMIN">Admin</Option>
                             <Option value="ROLE_USER">User</Option>
+                            <Option value="ROLE_USER, ROLE_ADMIN">Admin, User</Option>
                         </Select>
                     </Form.Item>
                 </div>

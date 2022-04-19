@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { FrownOutlined, SmileOutlined } from "@ant-design/icons";
 import { default as ClassicEditor } from "@ckeditor/ckeditor5-build-classic";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
+import CKEditor from "@ckeditor/ckeditor5-react";
 import { notification } from "antd";
 import { default as Button } from "antd/es/button";
 import "antd/es/button/style/index.css";
@@ -13,7 +13,7 @@ import { default as InputNumber } from "antd/es/input-number";
 import "antd/es/input-number/style/index.css";
 import "antd/es/input/style/index.css";
 import "antd/es/notification/style/index.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../../constants/api";
 import "./newProduct.css";
@@ -23,30 +23,11 @@ export default function NewProduct() {
     const history = useHistory();
     const [state, setState] = useState({
         country: [],
+        dataValueUpdate: {},
     });
 
-    async function getDataList() {
-        try {
-            const response = await api.get(
-                "https://restcountries.com/v2/name/vietnam"
-            );
-            console.log(response);
-            // const { data: dataProduct } = response2.data.data
-            // setState((prev) => ({ ...prev, dataProduct }))
-        } catch (err) {
-            notification.error({
-                message: "Error is occured",
-                description: "No data found.",
-            });
-        }
-    }
-
-    useEffect(() => {
-        getDataList();
-    }, []);
-
     const onSubmit = (value) => {
-        api.post("/products/create-product", {
+        api.post("/product/create-product", {
             ...value,
             attribute: {
                 dimensions: `${value.width}"w + ${value.depth}"d + ${value.height}"h`,
@@ -85,6 +66,10 @@ export default function NewProduct() {
         }
     };
 
+    const onChangeUpdate = (values) => {
+        setState({ ...state, dataValueUpdate: values });
+    };
+
     return (
         <div className="newProduct">
             <h1 className="addProductTitle">New Product</h1>
@@ -93,7 +78,7 @@ export default function NewProduct() {
                 // initialValues={props.catalog}
                 onFinish={onSubmit}
                 form={form}
-                // onValuesChange={onChangeUpdate}
+                onValuesChange={onChangeUpdate}
                 style={{ flexDirection: "column" }}
             >
                 <div className="addProductItem">
@@ -364,6 +349,7 @@ export default function NewProduct() {
                     >
                         <div className="dimensions">
                             <Form.Item
+                                name="widthMetric"
                                 label="Width Metric"
                                 rules={[
                                     {
@@ -480,6 +466,7 @@ export default function NewProduct() {
                     type="primary"
                     className="addProductButton"
                     htmlType="submit"
+                    disabled={state?.dataValueUpdate ? false : true}
                 >
                     Create
                 </Button>

@@ -43,16 +43,246 @@ function cardView(cardData: ProductData) {
     );
 }
 
-function service() {
+function equipmentSearch() {
     return (
-        <div className="stripe shadow">
-            <div className="row"></div>
+        <div className="row">
+            <div className="large-6 xlarge-8 columns">
+                <Link to="/#">
+                    <img src="https://www.labconco.com/images/cms/wide-large/quick-easy-equipment-selection-tools.jpg" />
+                </Link>
+            </div>
+            <div className="large-6 xlarge-4 columns">
+                <h2>
+                    <Link to="/">Equipment Search Tools</Link>
+                </h2>
+                <p>
+                    Our lab equipment search tools will help you find the right
+                    equipment and components. Quick.&nbsp;
+                </p>
+                <ul>
+                    <li>
+                        <Link to="/#">Freeze Dryer Configurator</Link>
+                    </li>
+                    <li>
+                        <Link to="/#">Fume Hood Configurator</Link>
+                    </li>
+                    <li>
+                        <Link to="/#">Glassware Washer Selection Tools</Link>
+                    </li>
+                    <li>
+                        <Link to="/#">Scout Lab Equipment Selector</Link>
+                    </li>
+                </ul>
+
+                <Link to="/#" className="button">
+                    View all Tools
+                </Link>
+            </div>
         </div>
     );
 }
 
+function service() {
+    return (
+        <div className="row">
+            <div className="large-6 xlarge-8 large-push-6 xlarge-push-4 columns">
+                <img src="https://www.labconco.com/images/cms/wide-large/e_watkins_atdesk_resized_20211104.jpg" />
+            </div>
+            <div className="large-6 xlarge-4 large-pull-6 xlarge-pull-8 columns">
+                <h2>
+                    <Link to="/#">Services</Link>
+                </h2>
+                <p>Our free services let us get right to work helping you.</p>
+                <ul>
+                    <li>
+                        <Link to="/services/chemical-guide-for-filtered-enclosures">
+                            Chemical guide for ductless hoods
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/services/request-chemical-assessment">
+                            Chemical assessment request
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/services/waterprofile-test-kit">
+                            Water profile testing
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/architects">Architectural resources</Link>
+                    </li>
+                    <li>
+                        <Link to="/services/filter-reminder">
+                            Filter change reminder service
+                        </Link>
+                    </li>
+                </ul>
+                <a href="/services" className="button">
+                    View all Services
+                </a>
+            </div>
+        </div>
+    );
+}
+
+function cardNew() {
+    return (
+        <Fragment>
+            <ul className="tabs" data-tabs="" id="news-tabs" role="tablist">
+                <li className="tabs-title is-active" role="presentation">
+                    <Link
+                        to="#"
+                        data-tabs-target="featured-news"
+                        aria-selected="true"
+                        role="tab"
+                        aria-controls="featured-news"
+                        id="featured-news-label"
+                    >
+                        News
+                    </Link>
+                </li>
+                <li className="tabs-title" role="presentation">
+                    <Link
+                        to="#"
+                        data-tabs-target="featured-events"
+                        role="tab"
+                        aria-controls="featured-events"
+                        aria-selected="false"
+                        id="featured-events-label"
+                    >
+                        Events
+                    </Link>
+                </li>
+            </ul>
+            <div className="tabs-content">
+                <div className="tabs-panel is-active" id="feature-news">
+                    <h2>News</h2>
+                    <hr></hr>
+                    <Link to="/#" className="index-card">
+                        <div className="grid-x grid-margin-x">
+                            <div className="medium-4 cell">
+                                <img src="https://www.labconco.com/images/cms/wide-med/brent-griffith-3d-lab.png" />
+                            </div>
+                            <div className="medium-8 cell">
+                                <h4>
+                                    3D Printing at Labconco Generates
+                                    Sustainability and Agility
+                                </h4>
+                                <div>
+                                    <p>
+                                        <span>
+                                            I was amazed to find a room
+                                            populated with dozens of 3D printers
+                                            that I didn’t even realize we had in
+                                            our facilities. They overwhelmed
+                                            most of an area we used to call “the
+                                            ping pong room” because it
+                                            historically housed a popular
+                                            breaktime diversion for our
+                                            engineers. What I saw there blew my
+                                            mind.&nbsp;
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                    <Link to="/#"  className="index-card">
+                        <div className="grid-x grid-margin-x">
+                            <div className="medium-4 cell">
+                                <img src="https://www.labconco.com/images/cms/wide-med/brent-griffith-3d-lab.png" />
+                            </div>
+                            <div className="medium-8 cell">
+                                <h4>
+                                    3D Printing at Labconco Generates
+                                    Sustainability and Agility
+                                </h4>
+                                <div>
+                                    <p>
+                                        <span>
+                                            I was amazed to find a room
+                                            populated with dozens of 3D printers
+                                            that I didn’t even realize we had in
+                                            our facilities. They overwhelmed
+                                            most of an area we used to call “the
+                                            ping pong room” because it
+                                            historically housed a popular
+                                            breaktime diversion for our
+                                            engineers. What I saw there blew my
+                                            mind.&nbsp;
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                    <Link to="/#"  className="index-card">
+                        <div className="grid-x grid-margin-x">
+                            <div className="medium-4 cell">
+                                <img src="https://www.labconco.com/images/cms/wide-med/brent-griffith-3d-lab.png" />
+                            </div>
+                            <div className="medium-8 cell">
+                                <h4>
+                                    3D Printing at Labconco Generates
+                                    Sustainability and Agility
+                                </h4>
+                                <div>
+                                    <p>
+                                        <span>
+                                            I was amazed to find a room
+                                            populated with dozens of 3D printers
+                                            that I didn’t even realize we had in
+                                            our facilities. They overwhelmed
+                                            most of an area we used to call “the
+                                            ping pong room” because it
+                                            historically housed a popular
+                                            breaktime diversion for our
+                                            engineers. What I saw there blew my
+                                            mind.&nbsp;
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                    <Link to="/#"  className="index-card">
+                        <div className="grid-x grid-margin-x">
+                            <div className="medium-4 cell">
+                                <img src="https://www.labconco.com/images/cms/wide-med/brent-griffith-3d-lab.png" />
+                            </div>
+                            <div className="medium-8 cell">
+                                <h4>
+                                    3D Printing at Labconco Generates
+                                    Sustainability and Agility
+                                </h4>
+                                <div>
+                                    <p>
+                                        <span>
+                                            I was amazed to find a room
+                                            populated with dozens of 3D printers
+                                            that I didn’t even realize we had in
+                                            our facilities. They overwhelmed
+                                            most of an area we used to call “the
+                                            ping pong room” because it
+                                            historically housed a popular
+                                            breaktime diversion for our
+                                            engineers. What I saw there blew my
+                                            mind.&nbsp;
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                </div>
+            </div>
+        </Fragment>
+    );
+}
+
 export default function HomePage() {
-    const PRODUCT_API = `/products/list-products`;
+    const PRODUCT_API = `/product/list-products`;
     const numberRenderProduct = 4;
     return (
         <Fragment>
@@ -69,6 +299,15 @@ export default function HomePage() {
                                 lengthRender={numberRenderProduct}
                             />
                         </div>
+                    </section>
+                    <section className="article border-top">
+                        {equipmentSearch()}
+                    </section>
+                    <section className="article border-top">
+                        {service()}
+                    </section>
+                    <section className="article border-top" id="feeds">
+                        {cardNew()}
                     </section>
                 </div>
             </div>
