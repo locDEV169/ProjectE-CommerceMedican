@@ -171,7 +171,12 @@ export default function HeaderLayout() {
                                         className="user-nav-account show-for-medium"
                                         role="menuitem"
                                     >
-                                        <Link to='/logout' onClick={() => logOut()}>Logout</Link>
+                                        <Link
+                                            to="/logout"
+                                            onClick={() => logOut()}
+                                        >
+                                            Logout
+                                        </Link>
                                         <a
                                             href="/profile"
                                             id="user-nav-account"
@@ -208,6 +213,9 @@ export default function HeaderLayout() {
                     </Link>
                     <ul className="menu float-right" id="top-nav">
                         <li>
+                            <a href="/">Categories</a>
+                        </li>
+                        <li>
                             <a onClick={() => setIsLoading(!isLoading)}>
                                 Products
                             </a>
@@ -215,9 +223,7 @@ export default function HeaderLayout() {
                         <li>
                             <a href="/#">Markets</a>
                         </li>
-                        <li>
-                            <a href="/">Resources</a>
-                        </li>
+
                         <li>
                             <a href="/sales">Sales</a>
                         </li>
