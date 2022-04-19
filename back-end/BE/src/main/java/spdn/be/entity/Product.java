@@ -37,6 +37,18 @@ public class Product {
     private Integer price;
     @NotNull
     private Integer quantity;
+    @NotNull
+    private float width;
+    @NotNull
+    private float depth;
+    @NotNull
+    private float height;
+    @NotNull
+    private float widthMetric;
+    @NotNull
+    private float depthMetric;
+    @NotNull
+    private float heightMetric;
     @CreationTimestamp
     private LocalDate createDate;
     @UpdateTimestamp
