@@ -6,6 +6,7 @@ const HomePage = React.lazy(() => import("../page/home"));
 const LoginPage = React.lazy(() => import("../page/login"));
 const LogoutPage = React.lazy(() => import("../page/logout"));
 const RegisterPage = React.lazy(() => import("../page/register"));
+const ProductDetail = React.lazy(() => import("../page/products/detail"));
 
 
 export function MainRoutes() {
@@ -17,6 +18,7 @@ export function MainRoutes() {
                     <Route exact path="/login" component={LoginPage} />
                     <Route exact path="/logout" component={LogoutPage} />
                     <Route exact path="/register" component={RegisterPage} />
+                    <Route exact path='/products/:slug/:id' component={ProductDetail} />
                 </MainLayout>
                 {/* <Route path='*' exact component={ErrorPage} /> */}
             </Switch>

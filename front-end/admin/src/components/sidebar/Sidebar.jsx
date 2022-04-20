@@ -1,15 +1,12 @@
 import {
     AttachMoney,
-    BarChart,
-    ChatBubbleOutline,
-    DynamicFeed,
+    BarChart, Category, ChatBubbleOutline, DashboardRounded, DynamicFeed,
     LineStyle,
     MailOutline,
     PermIdentity,
     Report,
     Storefront,
-    TrendingUp,
-    WorkOutline
+    TrendingUp
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import "./sidebar.css";
@@ -40,6 +37,18 @@ export default function Sidebar() {
                             <li className="sidebarListItem">
                                 <PermIdentity className="sidebarIcon" />
                                 Users
+                            </li>
+                        </Link>
+                        <Link to="/category" className="link">
+                            <li className="sidebarListItem">
+                                <Category className="sidebarIcon" />
+                                Category
+                            </li>
+                        </Link>
+                        <Link to="/sub-category" className="link">
+                            <li className="sidebarListItem">
+                                <DashboardRounded className="sidebarIcon" />
+                                Sub-Category
                             </li>
                         </Link>
                         <Link to="/products" className="link">
@@ -78,10 +87,6 @@ export default function Sidebar() {
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Staff</h3>
                     <ul className="sidebarList">
-                        <li className="sidebarListItem">
-                            <WorkOutline className="sidebarIcon" />
-                            Manage
-                        </li>
                         <li className="sidebarListItem">
                             <Report className="sidebarIcon" />
                             About
