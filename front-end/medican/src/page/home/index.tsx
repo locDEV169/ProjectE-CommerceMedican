@@ -5,6 +5,7 @@ import ReactHtmlParser from "react-html-parser";
 import { Link } from "react-router-dom";
 import "react-slideshow-image/dist/styles.css";
 import ImageSlider from "../../components/image-slider/ImageSlider";
+import { SLUG_URL } from "../../constants/slug";
 // import CardView from '../../components/card-view'
 // import { SLUG_URL } from '../../constants/slug'
 // import BannerLayout from '../../layouts/banner'
@@ -15,18 +16,19 @@ import { SliderData } from "./../../components/image-slider/SliderData";
 import "./style.scss";
 
 interface ProductData {
-    id?: number | string;
+    productId?: number | string;
     productName?: string;
     description?: string;
     image?: string;
 }
 
 function cardView(cardData: ProductData) {
+    console.log(cardData)
     return (
-        <div className="cell" key={cardData.id}>
+        <div className="cell" key={cardData.productId}>
             <div className="product-thumb-swoosh master">
-                {/* <Link to={`/products/${SLUG_URL(cardData.name || '')}/${cardData.id}`} className='swoosh'> */}
-                <Link to={`/`} className="swoosh">
+                <Link to={`/products/${SLUG_URL(cardData.productName || '')}/${cardData.productId}`} className='swoosh'> 
+                {/*<Link to={`/`} className="swoosh">*/}
                     <img
                         alt="Purifier Logic+ A2 Safety Cabinet on Stand"
                         src={cardData.image?.split(",")[0]}
