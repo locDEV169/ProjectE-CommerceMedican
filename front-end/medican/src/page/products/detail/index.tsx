@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/no-redundant-roles */
 /* eslint-disable jsx-a11y/anchor-has-content */
@@ -15,22 +16,6 @@ import DetailView from "../../../components/detail-view";
 import "./style.scss";
 import api from "../../../constants/api";
 
-// interface Catalog {
-//     id?: number | string;
-//     name?: string;
-//     image?: string;
-//     catalog?: number;
-//     estimatedShippingWeight?: number;
-//     estimatedShippingWeightMetric?: number;
-//     dimensions?: string;
-//     dimensionsMetric?: string;
-//     electrical?: string;
-//     description?: string;
-//     feature?: string;
-//     products?: { referenceLink?: string };
-//     value?: Value[];
-//     region?: string;
-// }
 type Value = {
     id: number;
     name: string;
@@ -187,8 +172,7 @@ export function ProductDetail(listData: listData) {
                             <div className="large-6 cell grid-x">
                                 <div className="large-6 cell">
                                     <Link
-                                        // to="/quote/add/3764"
-                                        to="#"
+                                        to="/quote"
                                         className="button alert expanded c-quote__button"
                                         id="product-quote-button"
                                     >
