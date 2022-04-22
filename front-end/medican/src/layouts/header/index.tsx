@@ -37,7 +37,8 @@ export default function HeaderLayout() {
 
     const logOut = () => {
         Cookies.remove("username");
-        Cookies.remove("token");
+        Cookies.remove("accessToken");
+        Cookies.remove("user");
         window.location.href = "/logout";
     };
 
