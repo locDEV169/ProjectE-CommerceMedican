@@ -33,6 +33,7 @@ export default function LoginPage() {
             .then((res: LoginType) => {
                 setCookie("username", res.data.username, parseJwt(res.data.token));
                 setCookie("accessToken", res.data.token, parseJwt(res.data.token));
+                setCookie('user',JSON.stringify(res.data),parseJwt(res.data.token))
                 message.success("Login Successful");
                 window.location.href = '/'
             })
