@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
         "lamaadmin"
-    ]
+    ],
+    "javascript.validate.enable": false
 }
