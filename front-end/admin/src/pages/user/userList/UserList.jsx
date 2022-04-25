@@ -1,27 +1,42 @@
-import "./userList.css";
+/* eslint-disable react-hooks/exhaustive-deps */
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline, EditOutlined } from "@material-ui/icons";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { useEffect, useRef, useState } from "react";
+import { Link,useHistory } from "react-router-dom";
 import { userRows } from "../../../dummyData";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import api from './../../../constants/api';
+import "./userList.css";
 
 export default function UserList() {
     const [data, setData] = useState(userRows);
-    const [state, setState] = useState([]);
+    const [state, setState] = useState({ dataUser: [] });
+    const urlApi = `/user/list-user`;
+    const mountStack = useRef({ [urlApi]: true }).current;
+    const history = useHistory();
 
     async function getDataList() {
         try {
-            const response = await api.get(`/products/list-products`)
-            const { content: dataProduct } = response.data
-            setState((prev) => ({ ...prev, dataProduct }))
+            const response = await api.get(`${urlApi}`)
+            const { data: dataUser } = response
+            if (mountStack[urlApi]) {
+                return setState((prev) => ({
+                    ...prev,
+                    dataUser: dataUser,
+                }));
+            }
         } catch (err) {}
     }
-    console.log(state)
+
     useEffect(() => {
-        getDataList()
-    }, []);
+        getDataList();
+        history.listen((location) => {
+            mountStack[urlApi] && getDataList();
+        });
+        return () => {
+            mountStack[urlApi] = false;
+        };
+    }, [getDataList()]);
 
     const handleDelete = (id) => {
         setData(data.filter((item) => item.id !== id));
@@ -79,7 +94,11 @@ export default function UserList() {
                 </Link>
             </div>
             <DataGrid
-                rows={data}
+                rows={state.dataUser.map((row) => {
+                    return row;
+                })}
+                getRowId={(r) => r.id}
+                id="id"
                 disableSelectionOnClick
                 columns={columns}
                 pageSize={8}
