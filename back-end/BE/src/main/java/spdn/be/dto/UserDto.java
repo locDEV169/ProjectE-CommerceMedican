@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import spdn.be.entity.Role;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +21,6 @@ public class UserDto {
     private String fullName;
     private String address;
     private String phoneNumber;
-    private List<String> role;
+    private Set<Role> roles = new HashSet<>();
     private String password;
 }
