@@ -1,10 +1,30 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
 import { Language, NotificationsNone, Settings } from "@material-ui/icons";
 import React from "react";
 import { Link } from "react-router-dom";
 import "./topbar.css";
+import { Fragment } from "react";
 
 export default function Topbar() {
+    const hardCore = () => {
+        return (
+            <Fragment>
+                <div className="topbarIconContainer">
+                    <NotificationsNone />
+                    <span className="topIconBadge">2</span>
+                </div>
+                <div className="topbarIconContainer">
+                    <Language />
+                    <span className="topIconBadge">2</span>
+                </div>
+                <div className="topbarIconContainer">
+                    <Settings />
+                </div>
+            </Fragment>
+        );
+    };
+
     return (
         <div className="topbar">
             <div className="topbarWrapper">
@@ -16,17 +36,6 @@ export default function Topbar() {
                     </span>
                 </div>
                 <div className="topRight">
-                    <div className="topbarIconContainer">
-                        <NotificationsNone />
-                        <span className="topIconBadge">2</span>
-                    </div>
-                    <div className="topbarIconContainer">
-                        <Language />
-                        <span className="topIconBadge">2</span>
-                    </div>
-                    <div className="topbarIconContainer">
-                        <Settings />
-                    </div>
                     <img
                         src="https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
                         alt=""

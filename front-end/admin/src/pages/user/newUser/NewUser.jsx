@@ -17,7 +17,7 @@ export default function NewUser() {
         api.post("auth/signup", { ...values, role: [values.role] })
             .then((res) => {
                 message.success("User registered successfully!");
-                // window.location.href = '/'
+                window.location.href = '/'
             })
             .catch((errors: ErrorType) => handlerError(errors));
     };
@@ -163,7 +163,7 @@ export default function NewUser() {
                 <div className="newUserItem">
                     <Form.Item
                         label="Active"
-                        name="role"
+                        name="roles"
                         rules={[
                             {
                                 required: true,
@@ -173,8 +173,8 @@ export default function NewUser() {
                         style={{ borderRadius: "10px" }}
                     >
                         <Select placeholder="Select a role for User" allowClear>
-                            <Option value="ROLE_ADMIN">Admin</Option>
-                            <Option value="ROLE_USER">User</Option>
+                            <Option value="admin">Admin</Option>
+                            <Option value="user">User</Option>
                             <Option value="ROLE_USER, ROLE_ADMIN">Admin, User</Option>
                         </Select>
                     </Form.Item>
