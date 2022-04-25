@@ -12,6 +12,7 @@ import spdn.be.repository.RoleRepository;
 import spdn.be.repository.UserRepository;
 import spdn.be.sercurity.services.UserService;
 
+import javax.validation.constraints.Null;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,7 +33,14 @@ public class UserServiceImpl implements UserService {
         userUpdate.setAddress(user.getAddress());
         userUpdate.setEmail(user.getEmail());
         userUpdate.setFullName(user.getFullName());
-        userUpdate.setPassword(encoder.encode(user.getPassword()));
+        if (user.getPassword()== null){
+
+            userUpdate.setPassword(encoder.encode(userUpdate.getPassword()));
+
+        }else {
+            userUpdate.setPassword(encoder.encode(user.getPassword()));
+        }
+
         userUpdate.setRoles(userUpdate.getRoles());
 
         userUpdate.setPhoneNumber(user.getPhoneNumber());
