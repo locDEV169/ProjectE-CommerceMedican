@@ -6,17 +6,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import spdn.be.dto.ProductDto;
 import spdn.be.entity.Product;
+import spdn.be.exception.ErrorMessages;
+import spdn.be.exception.RequestException;
 import spdn.be.sercurity.services.ProductService;
 
 import javax.validation.Valid;
 import java.net.URI;
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/product")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -28,14 +30,43 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
         }
-        return new ResponseEntity<>(productPage,HttpStatus.OK);
+        return new ResponseEntity<>(productPage, HttpStatus.OK);
+    }
+    @GetMapping("{id}")
+    public  ResponseEntity<Product> getProductById(@PathVariable Long id){
+        Product product = productService.findProductById(id);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
     @PostMapping("/create-product")
-    public ResponseEntity<?> addProduct(@Valid @RequestBody Product product ){
+    public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
         productService.addProduct(product);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getProductId())
                 .toUri();
+        ResponseEntity.created(location).build();
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/delete-product/{id}")
+    public ResponseEntity<Product> deleteProduct(@PathVariable Long id) {
+        Product product = productService.findProductById(id);
+        if (product == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        this.productService.deleteProductById(product.getProductId());
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+//bug
+    @PutMapping("/edit-product/{id}")
+    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto body, @PathVariable Long id) {
+        try {
+            ProductDto product = productService.updateProduct(body, id);
+            return ResponseEntity.status(HttpStatus.OK).body(product);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RequestException((ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessages()));
+        }
+
     }
 
 }

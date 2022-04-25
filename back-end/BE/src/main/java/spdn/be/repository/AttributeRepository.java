@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import spdn.be.entity.Attribute;
 
 @Repository
-public interface AttributeRepository extends JpaRepository<Attribute,Long> {
+public interface AttributeRepository extends JpaRepository<Attribute, Long> {
 }

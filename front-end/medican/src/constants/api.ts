@@ -2,7 +2,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 const getToken = Cookies.get("accessToken");
 const api = axios.create({
-    baseURL: 'http://localhost:8080/api'
+     baseURL: 'http://localhost:8080/api'
+
 })
 
 api.interceptors.request.use(
