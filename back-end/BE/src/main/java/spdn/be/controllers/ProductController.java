@@ -15,6 +15,7 @@ import spdn.be.sercurity.services.ProductService;
 import javax.validation.Valid;
 import java.net.URI;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -24,6 +25,7 @@ public class ProductController {
     @GetMapping("/list-products")
     public ResponseEntity<Page<Product>> getAllProduct(@PageableDefault(size = 10) Pageable pageable) {
         Page<Product> productPage = this.productService.findAllProduct(pageable);
+        
         if (productPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
