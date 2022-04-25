@@ -24,6 +24,20 @@ public class UserInfoResponse {
         this.roles = roles;
         this.accessToken = accessToken;
     }
+    public UserInfoResponse( String username, String email, String fullName, String address, String phoneNumber, List<String> roles) {
+
+        this.username = username;
+        this.email = email;
+        this.fullName = fullName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.roles = roles;
+
+    }
+
+    public UserInfoResponse() {
+
+    }
 
     public String getAddress() {
         return address;
