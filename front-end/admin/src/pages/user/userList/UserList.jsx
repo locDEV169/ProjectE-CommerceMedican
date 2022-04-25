@@ -1,12 +1,19 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
+import { SmileOutlined } from '@ant-design/icons';
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline, EditOutlined } from "@material-ui/icons";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { default as Modal } from "antd/es/modal";
+import "antd/es/modal/style/css";
+import { default as notification } from "antd/es/notification";
+import "antd/es/notification/style/index.css";
 import { useEffect, useRef, useState } from "react";
-import { Link,useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { userRows } from "../../../dummyData";
 import api from './../../../constants/api';
 import "./userList.css";
+import { FrownOutlined } from '@ant-design/icons';
 
 export default function UserList() {
     const [data, setData] = useState(userRows);
@@ -38,9 +45,58 @@ export default function UserList() {
         };
     }, [getDataList()]);
 
-    const handleDelete = (id) => {
+    const handleDelete = (id: number) => {
         setData(data.filter((item) => item.id !== id));
     };
+
+    // function delete
+    const onDelete = (id: number) => {
+        const { confirm } = Modal;
+        new Promise((resolve, reject) => {
+            confirm({
+                title: "Are you sure you want to Delete ?",
+                onOk: () => {
+                    resolve(true);
+                    api.delete(`/user/delete/${id}`)
+                        .then((res) => {
+                            notification.success({
+                                message: "User has been delete Successfully",
+                                icon: (
+                                    <SmileOutlined
+                                        style={{ color: "#108ee9" }}
+                                    />
+                                ),
+                            });
+                            setTimeout(function () {
+                                history.go(0);
+                            }, 1000);
+                        })
+                        .catch((err) => handleError(err));
+                },
+                onCancel: () => {
+                    reject(true);
+                },
+            });
+        });
+    };
+
+    const handleError = (error) => {
+        switch (error.response.status) {
+            case 400:
+                notification.error({
+                    message: "Number Catalog already exists",
+                    icon: <FrownOutlined style={{ color: "#f21b3b" }} />,
+                });
+                break;
+            default:
+                notification.error({
+                    message: "Catalog has been added Failed",
+                    icon: <FrownOutlined style={{ color: "#f21b3b" }} />,
+                });
+                break;
+        }
+    };
+
 
     const columns = [
         { field: "id", headerName: "ID", width: 90 },
@@ -74,7 +130,7 @@ export default function UserList() {
                         </Link>
                         <DeleteOutline
                             className="userListDelete"
-                            onClick={() => handleDelete(params.row.id)}
+                            onClick={() => onDelete(params.row.id)}
                         />
                     </>
                 );
