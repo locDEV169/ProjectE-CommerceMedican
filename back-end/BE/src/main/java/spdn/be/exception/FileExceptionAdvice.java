@@ -1,4 +1,4 @@
-package spdn.be.sercurity;
+package spdn.be.exception;
 
 
 import org.springframework.http.HttpStatus;
@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import spdn.be.payload.response.ResponseError;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package spdn.be.sercurity;
+package spdn.be.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

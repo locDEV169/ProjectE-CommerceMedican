@@ -1,4 +1,4 @@
-package spdn.be.sercurity;
+package spdn.be.sercurity.services;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;

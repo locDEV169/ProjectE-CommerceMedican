@@ -1,4 +1,4 @@
-package spdn.be.sercurity;
+package spdn.be.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

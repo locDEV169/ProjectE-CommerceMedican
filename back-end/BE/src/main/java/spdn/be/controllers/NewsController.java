@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import spdn.be.entity.News;
 import spdn.be.payload.response.MessageResponse;
-import spdn.be.sercurity.IFileSytemStorage;
+import spdn.be.sercurity.services.IFileSytemStorage;
 import spdn.be.sercurity.services.NewsService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
