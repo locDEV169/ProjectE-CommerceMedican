@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import spdn.be.entity.Attribute;
-
+import spdn.be.entity.SubCategory;
 
 
 @Data
@@ -30,4 +30,5 @@ public class ProductDto {
     private float depthMetric;
 
     private float heightMetric;
+    private SubCategory subCategory;
 }
