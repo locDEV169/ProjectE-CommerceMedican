@@ -2,6 +2,7 @@ package spdn.be.controllers;
 
 import java.util.List;
 import java.util.Arrays;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class FileController {
     IFileSytemStorage fileSytemStorage;
 
     @PostMapping("/uploadfile")
-    public ResponseEntity<FileResponse> uploadSingleFile (@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<FileResponse> uploadSingleFile(@RequestParam("file") MultipartFile file) {
 
         String upfile = fileSytemStorage.saveFile(file);
 
@@ -33,11 +34,11 @@ public class FileController {
                 .path(upfile)
                 .toUriString();
 
-        return ResponseEntity.status(HttpStatus.OK).body(new FileResponse(upfile,fileDownloadUri,"File uploaded with success!"));
+        return ResponseEntity.status(HttpStatus.OK).body(new FileResponse(upfile, fileDownloadUri, "File uploaded with success!"));
     }
 
     @PostMapping("/uploadfiles")
-    public ResponseEntity<List<FileResponse>> uploadMultipleFiles (@RequestParam("files") MultipartFile[] files) {
+    public ResponseEntity<List<FileResponse>> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
 
         List<FileResponse> responses = Arrays.asList(files)
                 .stream()
@@ -48,7 +49,7 @@ public class FileController {
                                     .path("/api/download/")
                                     .path(upfile)
                                     .toUriString();
-                            return new FileResponse(upfile,fileDownloadUri,"File uploaded with success!");
+                            return new FileResponse(upfile, fileDownloadUri, "File uploaded with success!");
                         }
                 )
                 .collect(Collectors.toList());

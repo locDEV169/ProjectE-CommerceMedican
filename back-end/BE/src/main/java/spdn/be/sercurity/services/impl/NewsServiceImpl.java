@@ -50,8 +50,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News getNews(long id) {
-        newsRepositry.getById(id);
-        return null;
+        News newsS=new News();
+        newsS=newsRepositry.findById(id).get();
+        return newsS;
     }
 
 
