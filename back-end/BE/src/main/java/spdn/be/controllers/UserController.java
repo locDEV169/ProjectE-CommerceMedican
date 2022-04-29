@@ -3,16 +3,17 @@ package spdn.be.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import spdn.be.dto.ProductDto;
 import spdn.be.dto.UserDto;
 import spdn.be.entity.User;
 import spdn.be.exception.ErrorMessages;
 import spdn.be.exception.RequestException;
-import spdn.be.payload.response.UserInfoResponse;
+import spdn.be.payload.response.MessageResponse;
 import spdn.be.repository.UserRepository;
 import spdn.be.sercurity.services.UserService;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+    @Autowired
+    PasswordEncoder encoder;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -59,4 +62,21 @@ public class UserController {
         }
     }
 
+
+    @PutMapping("/changepass-user/{id}")
+    public ResponseEntity Changepassword(@RequestParam("password") String password,
+                                         @RequestParam("oldpassword") String oldPassword,
+                                         @PathVariable Long id,
+                                         Principal principal) {
+        String user=principal.getName();
+        if (user.isEmpty()){
+            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("no login"));
+        }
+        User user1=userRepository.findById(id).get();
+
+//        //userService.changeUserPassword(id,password,oldPassword);
+        userService.changeUserPassword1(user,password,oldPassword);
+//        String mess=encoder.encode(oldPassword)+"/cs/"+encoder.encode(user1.getPassword())+"/cs/"+encoder.encode(password);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

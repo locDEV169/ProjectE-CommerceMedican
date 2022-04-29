@@ -2,19 +2,16 @@ package spdn.be.sercurity.services.impl;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import spdn.be.dto.UserDto;
-import spdn.be.entity.ERole;
-import spdn.be.entity.Role;
 import spdn.be.entity.User;
 import spdn.be.repository.RoleRepository;
 import spdn.be.repository.UserRepository;
 import spdn.be.sercurity.services.UserService;
 
-import javax.validation.constraints.Null;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -33,11 +30,11 @@ public class UserServiceImpl implements UserService {
         userUpdate.setAddress(user.getAddress());
         userUpdate.setEmail(user.getEmail());
         userUpdate.setFullName(user.getFullName());
-        if (user.getPassword()== null){
+        if (user.getPassword() == null) {
 
             userUpdate.setPassword(encoder.encode(userUpdate.getPassword()));
 
-        }else {
+        } else {
             userUpdate.setPassword(encoder.encode(user.getPassword()));
         }
 
@@ -50,4 +47,28 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(userUpdate, returnValue);
         return returnValue;
     }
+
+    public void changeUserPassword(Long  id, String newpassword,String oldpassword) {
+        User user =new User();
+        user=userRepository.findById(id).get();
+        if(encoder.encode(user.getPassword())==oldpassword){
+            user.setPassword(newpassword);
+        }
+
+
+        userRepository.save(user);
+    }
+    public void changeUserPassword1(String   name, String newpassword,String oldpassword) {
+        User user  = userRepository.findByUsername(name)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + name));
+
+        if(encoder.matches(oldpassword,user.getPassword())){
+            user.setPassword(encoder.encode(newpassword));
+        }
+
+
+        userRepository.save(user);
+    }
+
+
 }
