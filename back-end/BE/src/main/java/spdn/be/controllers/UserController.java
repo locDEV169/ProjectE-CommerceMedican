@@ -28,6 +28,7 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private UserService userService;
+
     @GetMapping("/list-user")
     public ResponseEntity<List<User>> getAllUser() {
         List<User> users = new ArrayList<>();
@@ -43,15 +44,17 @@ public class UserController {
         Optional<User> user = userRepository.findById(id);
 
 
-        return new ResponseEntity<Object>(user,HttpStatus.OK);
+        return new ResponseEntity<Object>(user, HttpStatus.OK);
     }
+
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id ){
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
-        return  new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @PutMapping("update/{id}")
-    public ResponseEntity<?> updateUser(@RequestBody UserDto body , @PathVariable Long id){
+    public ResponseEntity<?> updateUser(@RequestBody UserDto body, @PathVariable Long id) {
         try {
             UserDto user = userService.updateUser(body, id);
             return ResponseEntity.status(HttpStatus.OK).body(user);
@@ -63,20 +66,18 @@ public class UserController {
     }
 
 
-    @PutMapping("/changepass-user/{id}")
+    @PutMapping("/changepass-user")
     public ResponseEntity Changepassword(@RequestParam("password") String password,
                                          @RequestParam("oldpassword") String oldPassword,
-                                         @PathVariable Long id,
                                          Principal principal) {
-        String user=principal.getName();
-        if (user.isEmpty()){
+        String user = principal.getName();
+        if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("no login"));
         }
-        User user1=userRepository.findById(id).get();
-
 //        //userService.changeUserPassword(id,password,oldPassword);
-        userService.changeUserPassword1(user,password,oldPassword);
+        userService.changeUserPassword1(user, password, oldPassword);
 //        String mess=encoder.encode(oldPassword)+"/cs/"+encoder.encode(user1.getPassword())+"/cs/"+encoder.encode(password);
         return new ResponseEntity<>(HttpStatus.OK);
+//    }
     }
 }

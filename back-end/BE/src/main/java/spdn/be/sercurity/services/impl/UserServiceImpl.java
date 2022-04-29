@@ -48,16 +48,7 @@ public class UserServiceImpl implements UserService {
         return returnValue;
     }
 
-    public void changeUserPassword(Long  id, String newpassword,String oldpassword) {
-        User user =new User();
-        user=userRepository.findById(id).get();
-        if(encoder.encode(user.getPassword())==oldpassword){
-            user.setPassword(newpassword);
-        }
 
-
-        userRepository.save(user);
-    }
     public void changeUserPassword1(String   name, String newpassword,String oldpassword) {
         User user  = userRepository.findByUsername(name)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + name));
