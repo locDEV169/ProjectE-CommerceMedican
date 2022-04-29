@@ -72,12 +72,12 @@ public class UserController {
                                          Principal principal) {
         String user = principal.getName();
         if (user.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("no login"));
+            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("User is not found "));
         }
-//        //userService.changeUserPassword(id,password,oldPassword);
+
         userService.changeUserPassword1(user, password, oldPassword);
-//        String mess=encoder.encode(oldPassword)+"/cs/"+encoder.encode(user1.getPassword())+"/cs/"+encoder.encode(password);
-        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Change pass complete"));
     }
+
 }
