@@ -19,7 +19,7 @@ function MenuView(categoryData: CategoryData) {
     return (
         <li key={categoryData.id}>
             {/* <Link to={`/category/${SLUG_URL(categoryData.name!)}/${categoryData.id}`}>{categoryData.name}</Link> */}
-            <Link to={`/`}>{categoryData.name}</Link>
+            <Link to={`/profile`}>{categoryData.name}</Link>
         </li>
     );
 }
@@ -178,15 +178,15 @@ export default function HeaderLayout() {
                                         >
                                             Logout
                                         </Link>
-                                        <a
-                                            href="/profile"
+                                        <Link
+                                            to="/profile"
                                             id="user-nav-account"
-                                            onClick={(events) =>
-                                                events.preventDefault()
-                                            }
+                                            // onClick={(events) =>
+                                            //     events.preventDefault()
+                                            // }
                                         >
                                             Hi,{getUserName}
-                                        </a>
+                                        </Link>
                                     </li>
                                 ) : (
                                     <li
