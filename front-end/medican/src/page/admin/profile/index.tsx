@@ -123,7 +123,7 @@ export default function EmailPage() {
         }
     };
 
-    const setCookie = (username: String, value: String, expires: Number) => {
+    const setCookie = (username: string, value: string, expires: number) => {
         const date = new Date();
         date.setTime(date.getTime() + expires);
         Cookies.set(username, value, { expires: date, path: "/" });
