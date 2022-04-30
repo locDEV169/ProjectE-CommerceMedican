@@ -57,6 +57,12 @@ export default function Sidebar() {
                                 Products
                             </li>
                         </Link>
+                        <Link to="/news" className="link">
+                            <li className="sidebarListItem">
+                                <Category className="sidebarIcon" />
+                                News
+                            </li>
+                        </Link>
                         <li className="sidebarListItem">
                             <AttachMoney className="sidebarIcon" />
                             Transactions

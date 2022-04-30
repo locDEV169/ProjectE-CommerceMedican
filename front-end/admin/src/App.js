@@ -3,12 +3,15 @@ import "./App.css";
 import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
 import Home from "./pages/home/Home";
+import CreateNew from "./pages/news/new-create";
 import NewProduct from "./pages/product/newProduct/NewProduct";
 import Product from "./pages/product/Product";
 import ProductList from "./pages/product/productList/ProductList";
 import NewUser from "./pages/user/newUser/NewUser";
 import User from "./pages/user/User";
 import UserList from "./pages/user/userList/UserList";
+import UpdateNew from './pages/news/new-update/index';
+import NewsList from "./pages/news/new-list";
 
 function App() {
     return (
@@ -37,6 +40,15 @@ function App() {
                     </Route>
                     <Route path="/new-product">
                         <NewProduct />
+                    </Route>
+                    <Route path="/news">
+                        <NewsList />
+                    </Route>
+                    <Route path="/create-news">
+                        <CreateNew />
+                    </Route>
+                    <Route path="/new/:id">
+                        <UpdateNew />
                     </Route>
                 </Switch>
             </div>
