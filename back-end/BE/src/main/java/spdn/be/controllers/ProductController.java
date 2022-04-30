@@ -16,6 +16,8 @@ import spdn.be.sercurity.services.ProductService;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/product")
@@ -68,5 +70,9 @@ public class ProductController {
         }
 
     }
-
+    @GetMapping("/search/{name}")
+    public ResponseEntity<List<Product>> search(@PathVariable String name){
+        List<Product> listProducts = productService.listAll(name);
+        return new ResponseEntity<>(listProducts, HttpStatus.OK);
+    }
 }
