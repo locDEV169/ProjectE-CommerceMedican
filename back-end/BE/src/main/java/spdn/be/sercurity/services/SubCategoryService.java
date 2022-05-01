@@ -8,5 +8,5 @@ import java.util.List;
 public interface SubCategoryService {
      List<SubCategory> getSubcategory();
      List<Product> getproducts(String name);
-
+     void createSub(SubCategory subCategory);
 }

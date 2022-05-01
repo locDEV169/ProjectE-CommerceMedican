@@ -31,4 +31,9 @@ public class SubCategoryServiceImpl implements SubCategoryService{
         return productEntity;
 
     }
+
+    @Override
+    public void createSub(SubCategory subCategory) {
+        subCategoryRepository.save(subCategory);
+    }
 }

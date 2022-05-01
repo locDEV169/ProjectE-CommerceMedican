@@ -23,4 +23,5 @@ public class UserDto {
     private String phoneNumber;
     private Set<Role> roles = new HashSet<>();
     private String password;
+    private List<AddressDto> addressDtos;
 }
