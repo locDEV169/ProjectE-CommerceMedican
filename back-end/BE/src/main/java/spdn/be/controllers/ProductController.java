@@ -12,6 +12,7 @@ import spdn.be.dto.ProductDto;
 import spdn.be.entity.Product;
 import spdn.be.exception.ErrorMessages;
 import spdn.be.exception.RequestException;
+import spdn.be.payload.response.MessageResponse;
 import spdn.be.sercurity.services.ProductService;
 
 import javax.validation.Valid;
@@ -71,8 +72,15 @@ public class ProductController {
 
     }
     @GetMapping("/search/{name}")
-    public ResponseEntity<List<Product>> search(@PathVariable String name){
+    public ResponseEntity<?> search(@PathVariable String name){
         List<Product> listProducts = productService.listAll(name);
-        return new ResponseEntity<>(listProducts, HttpStatus.OK);
+        if (listProducts.isEmpty()){
+            String mess="not found";
+            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Not found"));
+        }
+        else{
+            return new ResponseEntity<>(listProducts, HttpStatus.OK);
+        }
+
     }
 }
