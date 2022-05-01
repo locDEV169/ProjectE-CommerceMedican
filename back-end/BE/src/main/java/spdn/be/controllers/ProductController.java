@@ -75,7 +75,7 @@ public class ProductController {
     public ResponseEntity<?> search(@PathVariable String name){
         List<Product> listProducts = productService.listAll(name);
         if (listProducts.isEmpty()){
-            String mess="not found";
+
             return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Not found"));
         }
         else{
