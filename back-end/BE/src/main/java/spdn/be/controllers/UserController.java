@@ -66,7 +66,7 @@ public class UserController {
 
 
             AddressResponse returnValue=userService.addAddress(id,newAddress);
-            return new ResponseEntity<>(returnValue,HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body(returnValue);
         }
         catch (Exception e){
             e.printStackTrace();
