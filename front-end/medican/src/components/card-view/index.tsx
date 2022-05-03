@@ -18,9 +18,7 @@ export default function CardView(props: Props) {
     async function getDataList() {
         try {
             const response = await api.get(urlApi);
-            console.log("card", response);
             const { content: dataSource } = response.data;
-            console.log(dataSource)
             if (dataSource.length >= lengthRender!) {
                 const getRandom = (arr: object[], n: number) => {
                     var result = new Array(n),
@@ -50,6 +48,7 @@ export default function CardView(props: Props) {
     useEffect(() => {
         getDataList();
     }, []);
+    console.log(state.dataSource)
 
     return <>{state.dataSource.map(cardView)}</>;
 }

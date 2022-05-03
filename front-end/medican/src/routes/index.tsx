@@ -10,6 +10,8 @@ const ProductDetail = React.lazy(() => import("../page/products/detail"));
 const QuotePage = React.lazy(() => import("../page/quote"));
 const ProfilePage = React.lazy(() => import("../page/admin"));
 const EmailPage = React.lazy(() => import("./../page/admin/profile/index"));
+const NewsPage = React.lazy(() => import("./../page/news/list-news"));
+const DetailNewsPage = React.lazy(() => import("./../page/news/detail-news"));
 const InformationPage = React.lazy(() => import("./../page/admin/information"));
 const CheckoutPage = React.lazy(() => import("./../page/checkout"));
 
@@ -28,6 +30,8 @@ export function MainRoutes() {
           <Route exact path="/profile" component={ProfilePage} />
           <Route exact path="/profile/login" component={EmailPage} />
           <Route exact path="/profile/personal" component={InformationPage} />
+          <Route exact path="/news" component={NewsPage} />
+          <Route exact path="/news/:id" component={DetailNewsPage} />
         </MainLayout>
         {/* <Route path='*' exact component={ErrorPage} /> */}
       </Switch>

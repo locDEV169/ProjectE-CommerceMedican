@@ -10,8 +10,14 @@ import ProductList from "./pages/product/productList/ProductList";
 import NewUser from "./pages/user/newUser/NewUser";
 import User from "./pages/user/User";
 import UserList from "./pages/user/userList/UserList";
-import UpdateNew from './pages/news/new-update/index';
+import UpdateNew from "./pages/news/new-update/index";
 import NewsList from "./pages/news/new-list";
+import ListCategory from "./pages/category/list-category";
+import AddCategoriesPage from "./pages/category/new-category";
+import EditCategoriesPage from "./pages/category/update-category";
+import ListSubCategory from "./pages/sub-category/list-sub-category";
+import AddSubCategoriesPage from "./pages/sub-category/add-sub-category";
+import EditSubCategoriesPage from "./pages/sub-category/edit-sub-category";
 
 function App() {
     return (
@@ -49,6 +55,24 @@ function App() {
                     </Route>
                     <Route path="/new/:id">
                         <UpdateNew />
+                    </Route>
+                    <Route path="/categories">
+                        <ListCategory />
+                    </Route>
+                    <Route path="/new-category">
+                        <AddCategoriesPage />
+                    </Route>
+                    <Route path="/category/:id">
+                        <EditCategoriesPage />
+                    </Route>
+                    <Route path="/sub-categories">
+                        <ListSubCategory />
+                    </Route>
+                    <Route path="/add-sub-category">
+                        <AddSubCategoriesPage />
+                    </Route>
+                    <Route path="/sub-category/:id">
+                        <EditSubCategoriesPage />
                     </Route>
                 </Switch>
             </div>
