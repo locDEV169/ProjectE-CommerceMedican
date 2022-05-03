@@ -28,8 +28,13 @@ public class SubCategory implements Serializable {
     private String subCategoryName;
     @NotNull
     private String imageSub;
+    @Lob
     private String description;
     private String feature;
+    @ManyToOne( targetEntity = Category.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", nullable=false)
+    @JsonIgnore
+    private Category category;
     @OneToMany(targetEntity = Product.class, mappedBy = "subCategory", cascade = CascadeType.ALL)
     @JsonIgnore
     public List<Product> products = new ArrayList<Product>();

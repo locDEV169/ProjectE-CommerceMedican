@@ -58,8 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/test/**").permitAll()
-                .antMatchers("/api/product/{id}", "/api/product/edit-product/{id}", "/api/user/**", "/api/uploadfile", "/api/news/**").permitAll()
-                .antMatchers("/api/cart/get-cartitem/{id}","api/add/**").permitAll()
+                .antMatchers("/api/product/{id}", "/api/product/edit-product/{id}", "/api/user/**", "/api/uploadfile", "/api/news/**","/api/api/category/**").permitAll()
+                .antMatchers("/api/cart/get-cartitem/{id}","api/add/**","api/order/**").permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/api/product/delete-product/**").hasRole("ADMIN")
                 .anyRequest().authenticated();

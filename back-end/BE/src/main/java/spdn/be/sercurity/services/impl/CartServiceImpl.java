@@ -43,7 +43,7 @@ public class CartServiceImpl  implements CartService {
             if(productEntity.getQuantity()<quantity)
 
                 throw new RequestException(ErrorMessages.OUT_OF_STOCK.getErrorMessages());
-
+            cartItemEntity.setCart(cartEntity1);
             cartItemEntity.setProduct(productEntity);
             cartItemEntity.setQuantity(quantity);
             cartItemEntity.setTotalPrice(quantity * productEntity.getPrice());
@@ -90,7 +90,7 @@ public class CartServiceImpl  implements CartService {
             cartItemEntity.setTotalPrice(quantity * productEntity.getPrice());
             cartEntity1.getCartItemList().add(cartItemEntity);
 
-            double grandtotal = 0;
+            double grandtotal = cartEntity.get().getTotalAmount();
             for(CartItem cartItemEntity1:cartEntity1.getCartItemList()){
                 grandtotal += cartItemEntity1.getTotalPrice();
             }
