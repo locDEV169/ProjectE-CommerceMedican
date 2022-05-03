@@ -53,6 +53,8 @@ public class Product {
     private LocalDate createDate;
     @UpdateTimestamp
     private LocalDate updateDate;
+    @NotNull
+    private  String imageProduct;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "attribute_id", referencedColumnName = "attributeId")
     private Attribute attribute;

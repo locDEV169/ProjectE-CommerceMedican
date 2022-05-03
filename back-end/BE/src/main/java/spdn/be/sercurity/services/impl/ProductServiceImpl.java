@@ -39,17 +39,17 @@ public class ProductServiceImpl implements ProductService {
         BeanUtils.copyProperties(body, product);
         Product productUpdate = productRepository.findById(id).get();
         productUpdate.setProductName(product.getProductName());
-        productUpdate.setPrice(product.getPrice());
-        productUpdate.setDescription(product.getDescription());
-        productUpdate.setQuantity(product.getQuantity());
-        productUpdate.setWidth(product.getWidth());
-        productUpdate.setWidthMetric(product.getWidthMetric());
-        productUpdate.setDepth(product.getDepth());
-        productUpdate.setDepthMetric(product.getDepthMetric());
-        productUpdate.setHeight(product.getHeight());
-        productUpdate.setHeightMetric(product.getHeightMetric());
-        productUpdate.setAttribute(product.getAttribute());
-
+        productUpdate.setPrice(body.getPrice());
+        productUpdate.setDescription(body.getDescription());
+        productUpdate.setQuantity(body.getQuantity());
+        productUpdate.setWidth(body.getWidth());
+        productUpdate.setWidthMetric(body.getWidthMetric());
+        productUpdate.setDepth(body.getDepth());
+        productUpdate.setDepthMetric(body.getDepthMetric());
+        productUpdate.setHeight(body.getHeight());
+        productUpdate.setHeightMetric(body.getHeightMetric());
+        productUpdate.setAttribute(body.getAttribute());
+        productUpdate.setSubCategory(body.getSubCategory());
         productRepository.save(productUpdate);
         ProductDto returnValue = new ProductDto();
         BeanUtils.copyProperties(productUpdate, returnValue);
@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
     }
-
+    @Override
     public List<Product> listAll(String keyword) {
         if (keyword != null) {
             return productRepository.search(keyword);

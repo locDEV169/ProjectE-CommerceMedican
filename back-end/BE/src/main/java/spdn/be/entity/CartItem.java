@@ -31,10 +31,11 @@ public class CartItem {
     private double totalPrice;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     @JsonIgnore
     private Cart cart;
+
     public CartItem(Product product,int quantity,Cart cart) {
         this.product = product;
         this.cart = cart;
