@@ -22,7 +22,7 @@ export default function DetailView(props: Props) {
         dataDetail: {}
     })
     const path: Path = useParams()
-
+    
     async function getDataDetail() {
         try {
             const response = await api.get(`${urlApi}/${path.id}`)

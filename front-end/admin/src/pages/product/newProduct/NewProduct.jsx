@@ -13,9 +13,14 @@ import { default as InputNumber } from "antd/es/input-number";
 import "antd/es/input-number/style/index.css";
 import "antd/es/input/style/index.css";
 import "antd/es/notification/style/index.css";
-import { useState } from "react";
+import { default as Select } from "antd/es/select";
+import "antd/es/select/style/index.css";
+import { default as Spin } from "antd/es/spin";
+import "antd/es/spin/style/index.css";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import api from "../../../constants/api";
+import UploadImage from "../../../components/upload-image";
+import api, { URL_UPLOAD } from "../../../constants/api";
 import "./newProduct.css";
 
 export default function NewProduct() {
@@ -24,7 +29,27 @@ export default function NewProduct() {
     const [state, setState] = useState({
         country: [],
         dataValueUpdate: {},
+        dataSource: [],
+        image: [],
     });
+    const url = `${URL_UPLOAD}`;
+
+    async function getDataList() {
+        try {
+            const response = await api.get("subcategory/get-allsub");
+            const { data: dataSource } = response;
+            setState((prev) => ({ ...prev, dataSource }));
+        } catch (err) {
+            notification.error({
+                message: "Error is occured",
+                description: "No data found.",
+            });
+        }
+    }
+
+    useEffect(() => {
+        getDataList();
+    }, []);
 
     const onSubmit = (value) => {
         api.post("/product/create-product", {
@@ -37,6 +62,10 @@ export default function NewProduct() {
                 electrical: value.electrical,
                 country: value.country,
             },
+            subCategory: {
+                subCategoryId: value.subCategoryId,
+            },
+            imageProduct: value.imageProduct.toString(),
         })
             .then((res) => {
                 notification.success({
@@ -53,7 +82,7 @@ export default function NewProduct() {
         switch (error.response.status) {
             case 400:
                 notification.error({
-                    message: "Number Catalog already exists",
+                    message: "Product add failed",
                     icon: <FrownOutlined style={{ color: "#f21b3b" }} />,
                 });
                 break;
@@ -68,6 +97,35 @@ export default function NewProduct() {
 
     const onChangeUpdate = (values) => {
         setState({ ...state, dataValueUpdate: values });
+    };
+
+    const uploadImg = (value: string) => {
+        const urlImg = value;
+        state.image.push(urlImg);
+        console.log(value, state.image);
+        form.setFieldsValue({ imageProduct: state.image });
+    };
+
+    const deleteImg = (value: string) => {
+        const urlImg = url + value;
+        const index = state.image.indexOf(urlImg);
+        state.image.splice(index, 1);
+        form.setFieldsValue({ image: state.image });
+        // api.put(`catalogs/update/image/${props.catalog?.id}`, {
+        //     image: state.image.toString(),
+        // });
+    };
+
+    const convertImage = (image?: string) => {
+        const data: UploadFile[] =
+            image?.split(",").map((file: string, index: number) => {
+                return {
+                    uid: index.toString(),
+                    name: `${file}`,
+                    url: `${file}`,
+                };
+            }) || [];
+        return data;
     };
 
     return (
@@ -462,6 +520,63 @@ export default function NewProduct() {
                         />
                     </Form.Item>
                 </div>
+                <div className="addProductItem">
+                    <Form.Item
+                        name="subCategoryId"
+                        label="sub Categories Name : "
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please choose your categories!",
+                            },
+                        ]}
+                    >
+                        {state.dataSource.length > 0 ? (
+                            <Select
+                                showSearch
+                                // disabled={sub_categories && true}
+                                placeholder="Select a sub_categories category"
+                                optionFilterProp="children"
+                                filterOption={(input, option: any) =>
+                                    option.children
+                                        .toLowerCase()
+                                        .indexOf(input.toLowerCase()) >= 0
+                                }
+                            >
+                                {state.dataSource.map(
+                                    (category: Categories) => {
+                                        return (
+                                            <Select.Option
+                                                key={category.subCategoryId}
+                                                value={category.subCategoryId}
+                                            >
+                                                {category.subCategoryName}
+                                            </Select.Option>
+                                        );
+                                    }
+                                )}
+                            </Select>
+                        ) : (
+                            <Spin size="large" />
+                        )}
+                    </Form.Item>
+                </div>
+                <div className="addProductItem"></div>
+                <Form.Item
+                    valuePropName=""
+                    label="Image"
+                    name="imageProduct"
+                    // rules={[{ required: props.isEditCatalog ? false : true, message: 'Please add your Images!' }]}
+                >
+                    <UploadImage
+                        fileListImage={[]}
+                        // fileListImage={
+                        //     props?.news ? convertImage(props.news.imageurl) : []
+                        // }
+                        customRequest={(option) => uploadImg(option)}
+                        onRemove={(option) => deleteImg(option)}
+                    />
+                </Form.Item>
                 <Button
                     type="primary"
                     className="addProductButton"

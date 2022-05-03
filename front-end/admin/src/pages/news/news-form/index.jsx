@@ -37,7 +37,6 @@ export default function UserForm(props: Props) {
     const [form] = Form.useForm();
     const history = useHistory();
     const url = `${URL_UPLOAD}`;
-    console.log(props," state" ,state)
 
     useEffect(() => {
         form.setFieldsValue(props.news);

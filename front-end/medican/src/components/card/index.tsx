@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import api from "../../constants/api";
+import api from './../../constants/api';
 interface Props {
     cardView: (cardData: object) => JSX.Element;
     urlApi: string;
@@ -9,7 +9,7 @@ interface Props {
 interface CardViewState {
     dataSource: object[];
 }
-export default function CardView(props: Props) {
+export default function Card(props: Props) {
     const { cardView, urlApi, lengthRender } = props;
     const [state, setState] = useState<CardViewState>({
         dataSource: [],
@@ -18,7 +18,8 @@ export default function CardView(props: Props) {
     async function getDataList() {
         try {
             const response = await api.get(urlApi);
-            const { content: dataSource } = response.data;
+            const { data: dataSource } = response;
+            console.log(response)
             if (dataSource.length >= lengthRender!) {
                 const getRandom = (arr: object[], n: number) => {
                     var result = new Array(n),
@@ -48,6 +49,7 @@ export default function CardView(props: Props) {
     useEffect(() => {
         getDataList();
     }, []);
+    console.log(state.dataSource)
 
     return <>{state.dataSource.map(cardView)}</>;
 }

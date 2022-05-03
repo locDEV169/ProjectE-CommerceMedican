@@ -6,9 +6,6 @@ import { Link } from "react-router-dom";
 import "react-slideshow-image/dist/styles.css";
 import ImageSlider from "../../components/image-slider/ImageSlider";
 import { SLUG_URL } from "../../constants/slug";
-// import CardView from '../../components/card-view'
-// import { SLUG_URL } from '../../constants/slug'
-// import BannerLayout from '../../layouts/banner'
 import FooterLayout from "../../layouts/footer";
 import HeaderLayout from "../../layouts/header";
 import CardView from "./../../components/card-view/index";
@@ -20,6 +17,7 @@ interface ProductData {
     productName?: string;
     description?: string;
     image?: string;
+    imageProduct?: string;
 }
 
 interface NewData {
@@ -43,7 +41,7 @@ function cardView(cardData: ProductData) {
                     {/*<Link to={`/`} className="swoosh">*/}
                     <img
                         alt="Purifier Logic+ A2 Safety Cabinet on Stand"
-                        src={cardData.image?.split(",")[0]}
+                        src={cardData.imageProduct}
                     />
                 </Link>
                 <h5>
@@ -296,7 +294,6 @@ function cardNew() {
 }
 
 function newsService(cardNew: NewData) {
-    console.log("img new", cardNew.imageurl);
     return (
         <Fragment>
             <Link to={`/news/${cardNew.newsId}`} className="index-card">
@@ -327,8 +324,9 @@ function newsService(cardNew: NewData) {
 
 export default function HomePage() {
     const PRODUCT_API = `/product/list-products`;
+    const SUB_CATEGORY_API = `/subcategory/get-allsub`
     const NEWS_API = "/news/list-news";
-    const numberRenderProduct = 4;
+    const numberRenderProduct = 8;
     const numberRenderNews = 5;
 
     return (
