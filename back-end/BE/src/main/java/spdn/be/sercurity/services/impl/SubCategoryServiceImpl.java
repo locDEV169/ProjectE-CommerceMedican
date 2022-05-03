@@ -9,21 +9,24 @@ import spdn.be.sercurity.services.SubCategoryService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
-public class SubCategoryServiceImpl implements SubCategoryService{
+public class SubCategoryServiceImpl implements SubCategoryService {
     @Autowired
     SubCategoryRepository subCategoryRepository;
-    public List<SubCategory> getSubcategory(){
+
+    public List<SubCategory> getSubcategory() {
         return subCategoryRepository.findAll();
     }
 
-    public List<Product> getproducts(String subCategoryName){
+    public List<Product> getproducts(String subCategoryName) {
         List<SubCategory> subCategoryEntity = subCategoryRepository.findAll();
         List<Product> productEntity = new ArrayList<>();
-        for (SubCategory i: subCategoryEntity){
-            if (i.getSubCategoryName().equals(subCategoryName)){
+        for (SubCategory i : subCategoryEntity) {
+            if (i.getSubCategoryName().equals(subCategoryName)) {
                 System.out.println("If Loop");
-                for(Product product: i.getProducts()){
+                for (Product product : i.getProducts()) {
                     productEntity.add(product);
                 }
             }
@@ -34,6 +37,14 @@ public class SubCategoryServiceImpl implements SubCategoryService{
 
     @Override
     public void createSub(SubCategory subCategory) {
+
         subCategoryRepository.save(subCategory);
     }
+
+    @Override
+    public SubCategory findSubcategoryById(Long id) {
+        return subCategoryRepository.findById(id).get();
+    }
+
+
 }

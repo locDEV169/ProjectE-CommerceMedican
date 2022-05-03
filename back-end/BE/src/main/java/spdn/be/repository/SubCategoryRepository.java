@@ -6,4 +6,5 @@ import spdn.be.entity.SubCategory;
 @Repository
 public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> {
     SubCategory findBySubCategoryName(String subCategoryName);
+
 }

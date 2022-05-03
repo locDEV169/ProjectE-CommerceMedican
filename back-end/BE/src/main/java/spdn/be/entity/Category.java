@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name = "category")
+
 public class Category implements Serializable {
 
     @Id
@@ -26,8 +26,7 @@ public class Category implements Serializable {
     @Column(nullable = false, length = 100)
     private String categoryName;
 
-    @OneToMany(targetEntity = SubCategory.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id", referencedColumnName = "categoryId")
+    @OneToMany(mappedBy = "category",cascade=CascadeType.ALL)
     private List<SubCategory> subCategories = new ArrayList<SubCategory>();
 
 

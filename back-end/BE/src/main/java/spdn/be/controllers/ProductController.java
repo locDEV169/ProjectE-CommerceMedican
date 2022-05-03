@@ -27,7 +27,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/list-products")
-    public ResponseEntity<Page<Product>> getAllProduct(@PageableDefault(size = 10) Pageable pageable) {
+    public ResponseEntity<Page<Product>> getAllProduct(@PageableDefault(size = Integer.MAX_VALUE) Pageable pageable) {
         Page<Product> productPage = this.productService.findAllProduct(pageable);
         if (productPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
