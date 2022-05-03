@@ -56,7 +56,7 @@ export default function CategoriesForm(props: Props) {
                 >
                     <Form.Item
                         label="Categories Name"
-                        name="name"
+                        name="categoryName"
                         rules={[
                             {
                                 required: true,
@@ -72,21 +72,6 @@ export default function CategoriesForm(props: Props) {
                         <Input
                             type="text"
                             placeholder="Enter Categories name"
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        label="Reference Link"
-                        name="referenceLink"
-                        rules={[
-                            {
-                                whitespace: true,
-                                message: "Reference link is not valid",
-                            },
-                        ]}
-                    >
-                        <Input
-                            type="text"
-                            placeholder="Please Categories Reference Link"
                         />
                     </Form.Item>
                     <Form.Item

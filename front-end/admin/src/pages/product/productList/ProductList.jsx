@@ -101,13 +101,13 @@ export default function ProductList() {
         {
             field: "product",
             headerName: "Product",
-            width: 200,
+            width: 400,
             renderCell: (params) => {
                 return (
                     <div className="productListItem">
                         <img
                             className="productListImg"
-                            src={params.row.img}
+                            src={params.row.imageProduct}
                             alt=""
                         />
                         {params.row.productName}
@@ -115,7 +115,7 @@ export default function ProductList() {
                 );
             },
         },
-        { field: "quantity", headerName: "Quantity", width: 200 },
+        { field: "quantity", headerName: "Quantity", width: 120 },
         // {
         //     field: "status",
         //     headerName: "Status",

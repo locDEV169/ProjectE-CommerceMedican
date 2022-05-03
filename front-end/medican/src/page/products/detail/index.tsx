@@ -54,6 +54,7 @@ interface listData {
     productId?: number;
     productName?: string;
     image?: string;
+    imageProduct?: string;
     catalog?: any;
     estimatedShippingWeight?: number;
     estimatedShippingWeightMetric?: number;
@@ -99,7 +100,7 @@ export function ProductDetail(listData: listData) {
                         <div className="c-product-images__lg">
                             <img
                                 alt="5' XStream Hood "
-                                src={getImage[0]}
+                                src={listData.imageProduct}
                                 title="5' XStream Hood "
                                 className="js-main-img   "
                                 data-index={0}

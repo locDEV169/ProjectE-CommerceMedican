@@ -24,14 +24,14 @@ export default function EditCategoriesPage() {
     const path: Path = useParams();
     let history = useHistory();
 
-    // useEffect(() => {
-    //     api.get(`categories/${path.id}`).then((res) => {
-    //         const { data: dataSource } = res.data.data
-    //         setCategories({
-    //             ...dataSource
-    //         })
-    //     })
-    // }, [])
+    useEffect(() => {
+        api.get(`categories/${path.id}`).then((res) => {
+            const { data: dataSource } = res.data.data
+            setCategories({
+                ...dataSource
+            })
+        })
+    }, [])
 
     const onEditCategories = (values: Categories) => {
         api.put(`categories/update/${path.id}`, {

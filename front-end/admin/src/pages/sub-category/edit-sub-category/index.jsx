@@ -21,16 +21,17 @@ interface Category {
 }
 
 export default function EditSubCategoriesPage() {
-    const [subCategories, setSubCategories] = useState({name: 1})
+    const [subCategories, setSubCategories] = useState({})
     const path: Path = useParams()
     let history = useHistory()
 
     useEffect(() => {
-        api.get(`sub-categories/${path.id}`).then((res) => {
-            const { data: dataSource } = res.data.data
+        api.get(`subcategory/${path.id}`).then((res) => {
+            const { data: dataSource } = res
             setSubCategories(dataSource)
         })
     }, [])
+    console.log(subCategories)
     const onEditSubCategories = (values: object) => {
         api.put(`sub-categories/update/${path.id}`, { ...values })
             .then(() => {

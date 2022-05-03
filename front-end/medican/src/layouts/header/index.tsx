@@ -6,27 +6,39 @@ import "antd/dist/antd.css";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Card from "../../components/card";
+import { SLUG_URL } from "../../constants/slug";
 import "./style.scss";
 // import CardView from '../../components/card-view'
 // import { SLUG_URL } from '../../constants/slug'
 interface CategoryData {
-    id?: string | number;
-    name?: string;
+    categoryId?: string | number;
+    categoryName?: string;
 }
-
+interface SubCategoryData {
+    subCategoryId?: string | number;
+    subCategoryName?: string | any;
+}
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function MenuView(categoryData: CategoryData) {
     return (
-        <li key={categoryData.id}>
+        <li key={categoryData.categoryId}>
             {/* <Link to={`/category/${SLUG_URL(categoryData.name!)}/${categoryData.id}`}>{categoryData.name}</Link> */}
-            <Link to={`/profile`}>{categoryData.name}</Link>
+            <Link to={`/#`}>{categoryData.categoryName}</Link>
         </li>
     );
 }
-
+function SubCategoriView(subCategoryData: SubCategoryData) {
+    return (
+        <li key={subCategoryData.subCategoryId}>
+            <Link to={`/sub-categories/${SLUG_URL(subCategoryData.subCategoryName)}/${subCategoryData.subCategoryId}`}>{subCategoryData.subCategoryName}</Link>
+        </li>
+    );
+}
 export default function HeaderLayout() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const CATEGORIES_API = `categories`;
+    const CATEGORIES_API = `/category/get-categorys`;
+    const SUB_CATEGORIES_API = `/subcategory/get-allsub`;
     const [isLoading, setIsLoading] = useState(false);
     const getUserName = Cookies.get("username");
 
@@ -212,7 +224,7 @@ export default function HeaderLayout() {
                     <ul className="menu float-right" id="top-nav">
                         <li>
                             <a onClick={() => setIsLoading(!isLoading)}>
-                                Products
+                                Product
                             </a>
                         </li>
                         <li>
@@ -246,8 +258,14 @@ export default function HeaderLayout() {
                         <div className="grid-x grid-margin-x">
                             <div className="cell auto">
                                 <ul className="vertical menu">
-                                    <li className="menu-text">Products</li>
-                                    {/* <CardView cardView={MenuView} urlApi={CATEGORIES_API} /> */}
+                                    <li className="menu-text">Categories</li>
+                                    <Card cardView={MenuView} urlApi={CATEGORIES_API} />
+                                </ul>
+                            </div>
+                            <div className="cell auto">
+                                <ul className="vertical menu">
+                                    <li className="menu-text">Sub-Category</li>
+                                    <Card cardView={SubCategoriView} urlApi={SUB_CATEGORIES_API} />
                                 </ul>
                             </div>
                         </div>

@@ -15,19 +15,19 @@ import { userRows } from '../../../dummyData';
 
 export default function ListSubCategory() {
     const [data, setData] = useState(userRows);
-    const [state, setState] = useState({ dataNews: [] });
-    const urlApi = `/news/list-news`;
+    const [state, setState] = useState({ dataSubCategory: [] });
+    const urlApi = `/subcategory/get-allsub`;
     const mountStack = useRef({ [urlApi]: true }).current;
     const history = useHistory();
 
     async function getDataList() {
         try {
             const response = await api.get(`${urlApi}`);
-            const { content: dataNews } = response.data;
+            const { data: dataSubCategory } = response;
             if (mountStack[urlApi]) {
                 return setState((prev) => ({
                     ...prev,
-                    dataNews: dataNews,
+                    dataSubCategory: dataSubCategory,
                 }));
             }
         } catch (err) {
@@ -98,15 +98,20 @@ export default function ListSubCategory() {
     };
 
     const columns = [
-        { field: "newsId", headerName: "Category ID", width: 150 },
+        { field: "subCategoryId", headerName: "Category ID", width: 150 },
         {
             field: "title",
             headerName: "Category Name",
-            width: 200,
+            width: 400,
             renderCell: (params) => {
                 return (
-                    <div className="userListUser">
-                        {params.row.title}
+                    <div className="productListItem">
+                        <img
+                            className="productListImg"
+                            src={params.row.imageSub}
+                            alt=""
+                        />
+                        {params.row.subCategoryName}
                     </div>
                 );
             },
@@ -118,12 +123,12 @@ export default function ListSubCategory() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/new/" + params.row.newsId}>
+                        <Link to={"/sub-category/" + params.row.subCategoryId}>
                             <EditOutlined className="userListEdit" />
                         </Link>
                         <DeleteOutline
                             className="userListDelete"
-                            onClick={() => onDelete(params.row.newsId)}
+                            onClick={() => onDelete(params.row.subCategoryId)}
                         />
                     </>
                 );
@@ -143,11 +148,11 @@ export default function ListSubCategory() {
                 </Link>
             </div>
             <DataGrid
-                rows={state.dataNews.map((row) => {
+                rows={state.dataSubCategory.map((row) => {
                     return row;
                 })}
-                getRowId={(r) => r.newsId}
-                id="newsId"
+                getRowId={(r) => r.subCategoryId}
+                id="subCategoryId"
                 disableSelectionOnClick
                 columns={columns}
                 pageSize={8}

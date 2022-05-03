@@ -121,7 +121,7 @@ export default function Product() {
                     <div className="productFormRight">
                         <div className="productUpload">
                             <img
-                                src="https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                                src={state.productDetail.imageProduct}
                                 alt=""
                                 className="productUploadImg"
                             />
@@ -134,7 +134,7 @@ export default function Product() {
                                 style={{ display: "none" }}
                             />
                         </div>
-                        <button className="productButton">Update</button>
+                        <button className="productButton" disabled>Update</button>
                     </div>
                 </form>
             </div>

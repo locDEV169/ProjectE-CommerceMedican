@@ -15,19 +15,20 @@ import { userRows } from '../../../dummyData';
 
 export default function ListCategory() {
     const [data, setData] = useState(userRows);
-    const [state, setState] = useState({ dataNews: [] });
-    const urlApi = `/news/list-news`;
+    const [state, setState] = useState({ dataCategory: [] });
+    const urlApi = `/category/get-categorys`;
     const mountStack = useRef({ [urlApi]: true }).current;
     const history = useHistory();
 
     async function getDataList() {
         try {
             const response = await api.get(`${urlApi}`);
-            const { content: dataNews } = response.data;
+            const { data: dataCategory } = response;
+            console.log(dataCategory)
             if (mountStack[urlApi]) {
                 return setState((prev) => ({
                     ...prev,
-                    dataNews: dataNews,
+                    dataCategory: dataCategory,
                 }));
             }
         } catch (err) {
@@ -98,15 +99,15 @@ export default function ListCategory() {
     };
 
     const columns = [
-        { field: "newsId", headerName: "Category ID", width: 150 },
+        { field: "categoryId", headerName: "Category ID", width: 150 },
         {
-            field: "title",
+            field: "categoryName",
             headerName: "Category Name",
             width: 200,
             renderCell: (params) => {
                 return (
                     <div className="userListUser">
-                        {params.row.title}
+                        {params.row.categoryName}
                     </div>
                 );
             },
@@ -118,19 +119,19 @@ export default function ListCategory() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/new/" + params.row.newsId}>
+                        <Link to={"/category/" + params.row.categoryId}>
                             <EditOutlined className="userListEdit" />
                         </Link>
                         <DeleteOutline
                             className="userListDelete"
-                            onClick={() => onDelete(params.row.newsId)}
+                            onClick={() => onDelete(params.row.categoryId)}
                         />
                     </>
                 );
             },
         },
     ];
-
+    console.log(state.dataCategory)
     return (
         <div className="userList">
             <div className="userTitleContainer">
@@ -143,11 +144,11 @@ export default function ListCategory() {
                 </Link>
             </div>
             <DataGrid
-                rows={state.dataNews.map((row) => {
+                rows={state.dataCategory.map((row) => {
                     return row;
                 })}
-                getRowId={(r) => r.newsId}
-                id="newsId"
+                getRowId={(r) => r.categoryId}
+                id="categoryId"
                 disableSelectionOnClick
                 columns={columns}
                 pageSize={8}

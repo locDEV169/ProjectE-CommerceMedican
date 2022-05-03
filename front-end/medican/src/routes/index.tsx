@@ -14,6 +14,7 @@ const NewsPage = React.lazy(() => import("./../page/news/list-news"));
 const DetailNewsPage = React.lazy(() => import("./../page/news/detail-news"));
 const InformationPage = React.lazy(() => import("./../page/admin/information"));
 const CheckoutPage = React.lazy(() => import("./../page/checkout"));
+const SubCategoryPage = React.lazy(() => import("./../page/sub-category"));
 
 export function MainRoutes() {
   return (
@@ -30,6 +31,7 @@ export function MainRoutes() {
           <Route exact path="/profile" component={ProfilePage} />
           <Route exact path="/profile/login" component={EmailPage} />
           <Route exact path="/profile/personal" component={InformationPage} />
+          <Route exact path='/sub-categories/:slug/:id' component={SubCategoryPage} />
           <Route exact path="/news" component={NewsPage} />
           <Route exact path="/news/:id" component={DetailNewsPage} />
         </MainLayout>

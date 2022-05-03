@@ -11,6 +11,8 @@ import { default as Select } from "antd/es/select";
 import "antd/es/select/style/index.css";
 import { default as Spin } from "antd/es/spin";
 import "antd/es/spin/style/index.css";
+import { default as ClassicEditor } from "@ckeditor/ckeditor5-build-classic";
+import CKEditor from "@ckeditor/ckeditor5-react";
 import { default as React, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../../constants/api";
@@ -41,10 +43,8 @@ export default function SubCategoriesForm(props: Props) {
 
     async function getDataList() {
         try {
-            const response = await api.get("categories");
-            const { totalRecords: totalRecords } = response.data.data;
-            const response2 = await api.get(`categories?limit=${totalRecords}`);
-            const { data: dataSource } = response2.data.data;
+            const response = await api.get("/category/get-categorys");
+            const { data: dataSource } = response;
             setState((prev) => ({ ...prev, dataSource }));
         } catch (err) {
             notification.error({
@@ -60,8 +60,8 @@ export default function SubCategoriesForm(props: Props) {
         return () => {
             form.setFieldsValue({});
         };
-    }, []);
-
+    }, [ form.setFieldsValue(sub_categories)]);
+    console.log(sub_categories)
     const onChangeUpdate = (values) => {
         setState({ ...state, dataValueUpdate: values });
     };
@@ -83,7 +83,7 @@ export default function SubCategoriesForm(props: Props) {
                         <Form.Item
                             className="sub-categories-form__item__left__input"
                             label="Sub-Category Name"
-                            name="name"
+                            name="subCategoryName"
                             rules={[
                                 {
                                     required: true,
@@ -97,6 +97,104 @@ export default function SubCategoriesForm(props: Props) {
                             ]}
                         >
                             <Input type="text" placeholder="Enter full name" />
+                        </Form.Item>
+                        <Form.Item
+                            label="Description"
+                            name="description"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input your Description!",
+                                },
+                            ]}
+                        >
+                            <CKEditor
+                                editor={ClassicEditor}
+                                config={{
+                                    toolbar: [
+                                        "heading",
+                                        "|",
+                                        "bold",
+                                        "italic",
+                                        "link",
+                                        "|",
+                                        "outdent",
+                                        "indent",
+                                        "|",
+                                        "bulletedList",
+                                        "numberedList",
+                                        "|",
+                                        "code",
+                                        "codeBlock",
+                                        "|",
+                                        "blockQuote",
+                                        "insertTable",
+                                        "mediaEmbed",
+                                        "|",
+                                        "undo",
+                                        "redo",
+                                    ],
+                                }}
+                                data={sub_categories.description || ""}
+                                onReady={(editor) => {}}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    form.setFieldsValue({
+                                        description: data,
+                                    });
+                                }}
+                                onBlur={(event, editor) => {}}
+                                onFocus={(event, editor) => {}}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label="Feature"
+                            name="feature"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input your Feature!",
+                                },
+                            ]}
+                        >
+                            <CKEditor
+                                editor={ClassicEditor}
+                                config={{
+                                    toolbar: [
+                                        "heading",
+                                        "|",
+                                        "bold",
+                                        "italic",
+                                        "link",
+                                        "|",
+                                        "outdent",
+                                        "indent",
+                                        "|",
+                                        "bulletedList",
+                                        "numberedList",
+                                        "|",
+                                        "code",
+                                        "codeBlock",
+                                        "|",
+                                        "blockQuote",
+                                        "insertTable",
+                                        "mediaEmbed",
+                                        "|",
+                                        "undo",
+                                        "redo",
+                                    ],
+                                }}
+                                data={sub_categories.feature || ""}
+                                onReady={(editor) => {}}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    form.setFieldsValue({
+                                        feature: data,
+                                    });
+                                }}
+                                onBlur={(event, editor) => {}}
+                                onFocus={(event, editor) => {}}
+                            />
                         </Form.Item>
                     </div>
                     <div className="sub-categories-form__item__right">
@@ -126,10 +224,10 @@ export default function SubCategoriesForm(props: Props) {
                                         (category: Categories) => {
                                             return (
                                                 <Select.Option
-                                                    key={category.id}
-                                                    value={category.id}
+                                                    key={category.categoryId}
+                                                    value={category.categoryId}
                                                 >
-                                                    {category.name}
+                                                    {category.categoryName}
                                                 </Select.Option>
                                             );
                                         }
