@@ -39,13 +39,13 @@ export default function Sidebar() {
                                 Users
                             </li>
                         </Link>
-                        <Link to="/category" className="link">
+                        <Link to="/categories" className="link">
                             <li className="sidebarListItem">
                                 <Category className="sidebarIcon" />
                                 Category
                             </li>
                         </Link>
-                        <Link to="/sub-category" className="link">
+                        <Link to="/sub-categories" className="link">
                             <li className="sidebarListItem">
                                 <DashboardRounded className="sidebarIcon" />
                                 Sub-Category
@@ -55,6 +55,12 @@ export default function Sidebar() {
                             <li className="sidebarListItem">
                                 <Storefront className="sidebarIcon" />
                                 Products
+                            </li>
+                        </Link>
+                        <Link to="/news" className="link">
+                            <li className="sidebarListItem">
+                                <Category className="sidebarIcon" />
+                                News
                             </li>
                         </Link>
                         <li className="sidebarListItem">

@@ -2,6 +2,7 @@ package spdn.be.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +20,7 @@ import spdn.be.payload.response.MessageResponse;
 import spdn.be.payload.response.UserInfoResponse;
 import spdn.be.repository.RoleRepository;
 import spdn.be.repository.UserRepository;
+import spdn.be.sercurity.services.UserService;
 import spdn.be.sercurity.utils.JwtUtils;
 import spdn.be.sercurity.services.impl.UserDetailsImpl;
 
@@ -42,6 +44,7 @@ public class AuthController {
     PasswordEncoder encoder;
     @Autowired
     JwtUtils jwtUtils;
+
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

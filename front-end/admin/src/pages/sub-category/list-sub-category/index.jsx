@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { SmileOutlined } from '@ant-design/icons';
+import { FrownOutlined, SmileOutlined } from "@ant-design/icons";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline, EditOutlined } from "@material-ui/icons";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -10,29 +10,29 @@ import { default as notification } from "antd/es/notification";
 import "antd/es/notification/style/index.css";
 import { useEffect, useRef, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { userRows } from "../../../dummyData";
-import api from './../../../constants/api';
-import "./userList.css";
-import { FrownOutlined } from '@ant-design/icons';
+import api from "../../../constants/api";
+import { userRows } from '../../../dummyData';
 
-export default function UserList() {
+export default function ListSubCategory() {
     const [data, setData] = useState(userRows);
-    const [state, setState] = useState({ dataUser: [] });
-    const urlApi = `/user/list-user`;
+    const [state, setState] = useState({ dataNews: [] });
+    const urlApi = `/news/list-news`;
     const mountStack = useRef({ [urlApi]: true }).current;
     const history = useHistory();
 
     async function getDataList() {
         try {
-            const response = await api.get(`${urlApi}`)
-            const { data: dataUser } = response
+            const response = await api.get(`${urlApi}`);
+            const { content: dataNews } = response.data;
             if (mountStack[urlApi]) {
                 return setState((prev) => ({
                     ...prev,
-                    dataUser: dataUser,
+                    dataNews: dataNews,
                 }));
             }
-        } catch (err) {}
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     useEffect(() => {
@@ -57,10 +57,10 @@ export default function UserList() {
                 title: "Are you sure you want to Delete ?",
                 onOk: () => {
                     resolve(true);
-                    api.delete(`/user/delete/${id}`)
+                    api.delete(`/news/delete-news/${id}`)
                         .then((res) => {
                             notification.success({
-                                message: "User has been delete Successfully",
+                                message: "News has been delete Successfully",
                                 icon: (
                                     <SmileOutlined
                                         style={{ color: "#108ee9" }}
@@ -97,22 +97,20 @@ export default function UserList() {
         }
     };
 
-
     const columns = [
-        { field: "id", headerName: "ID", width: 90 },
+        { field: "newsId", headerName: "Category ID", width: 150 },
         {
-            field: "user",
-            headerName: "User",
+            field: "title",
+            headerName: "Category Name",
             width: 200,
             renderCell: (params) => {
                 return (
                     <div className="userListUser">
-                        {params.row.username}
+                        {params.row.title}
                     </div>
                 );
             },
         },
-        { field: "email", headerName: "Email", width: 200 },
         {
             field: "action",
             headerName: "Action",
@@ -120,12 +118,12 @@ export default function UserList() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/user/" + params.row.id}>
+                        <Link to={"/new/" + params.row.newsId}>
                             <EditOutlined className="userListEdit" />
                         </Link>
                         <DeleteOutline
                             className="userListDelete"
-                            onClick={() => onDelete(params.row.id)}
+                            onClick={() => onDelete(params.row.newsId)}
                         />
                     </>
                 );
@@ -136,8 +134,8 @@ export default function UserList() {
     return (
         <div className="userList">
             <div className="userTitleContainer">
-                <h1 className="userTitle">List User</h1>
-                <Link to="/newUser">
+                <h1 className="userTitle">List Sub Category</h1>
+                <Link to="/add-sub-category">
                     <button className="userAddButton">
                         <AddCircleOutlineIcon />
                         <p>Create</p>
@@ -145,11 +143,11 @@ export default function UserList() {
                 </Link>
             </div>
             <DataGrid
-                rows={state.dataUser.map((row) => {
+                rows={state.dataNews.map((row) => {
                     return row;
                 })}
-                getRowId={(r) => r.id}
-                id="id"
+                getRowId={(r) => r.newsId}
+                id="newsId"
                 disableSelectionOnClick
                 columns={columns}
                 pageSize={8}

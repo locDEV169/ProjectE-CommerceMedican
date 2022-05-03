@@ -12,6 +12,8 @@ import spdn.be.repository.ProductRepository;
 import spdn.be.repository.SubCategoryRepository;
 import spdn.be.sercurity.services.ProductService;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService {
     @Autowired
@@ -69,5 +71,10 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
-
+    public List<Product> listAll(String keyword) {
+        if (keyword != null) {
+            return productRepository.search(keyword);
+        }
+        return productRepository.findAll();
+    }
 }

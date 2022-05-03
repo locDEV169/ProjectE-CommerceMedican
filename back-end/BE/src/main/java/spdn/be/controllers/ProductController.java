@@ -12,10 +12,13 @@ import spdn.be.dto.ProductDto;
 import spdn.be.entity.Product;
 import spdn.be.exception.ErrorMessages;
 import spdn.be.exception.RequestException;
+import spdn.be.payload.response.MessageResponse;
 import spdn.be.sercurity.services.ProductService;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/product")
@@ -68,5 +71,16 @@ public class ProductController {
         }
 
     }
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> search(@PathVariable String name){
+        List<Product> listProducts = productService.listAll(name);
+        if (listProducts.isEmpty()){
 
+            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Not found"));
+        }
+        else{
+            return new ResponseEntity<>(listProducts, HttpStatus.OK);
+        }
+
+    }
 }

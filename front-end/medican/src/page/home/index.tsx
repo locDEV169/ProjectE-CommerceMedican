@@ -22,13 +22,25 @@ interface ProductData {
     image?: string;
 }
 
+interface NewData {
+    title?: String;
+    content?: string;
+    newsId?: number | string;
+    imageurl?: string;
+    nameurl?: string;
+}
+
 function cardView(cardData: ProductData) {
-    console.log(cardData)
     return (
         <div className="cell" key={cardData.productId}>
             <div className="product-thumb-swoosh master">
-                <Link to={`/products/${SLUG_URL(cardData.productName || '')}/${cardData.productId}`} className='swoosh'> 
-                {/*<Link to={`/`} className="swoosh">*/}
+                <Link
+                    to={`/products/${SLUG_URL(cardData.productName || "")}/${
+                        cardData.productId
+                    }`}
+                    className="swoosh"
+                >
+                    {/*<Link to={`/`} className="swoosh">*/}
                     <img
                         alt="Purifier Logic+ A2 Safety Cabinet on Stand"
                         src={cardData.image?.split(",")[0]}
@@ -190,7 +202,7 @@ function cardNew() {
                             </div>
                         </div>
                     </Link>
-                    <Link to="/#"  className="index-card">
+                    <Link to="/#" className="index-card">
                         <div className="grid-x grid-margin-x">
                             <div className="medium-4 cell">
                                 <img src="https://www.labconco.com/images/cms/wide-med/brent-griffith-3d-lab.png" />
@@ -219,7 +231,7 @@ function cardNew() {
                             </div>
                         </div>
                     </Link>
-                    <Link to="/#"  className="index-card">
+                    <Link to="/#" className="index-card">
                         <div className="grid-x grid-margin-x">
                             <div className="medium-4 cell">
                                 <img src="https://www.labconco.com/images/cms/wide-med/brent-griffith-3d-lab.png" />
@@ -248,7 +260,7 @@ function cardNew() {
                             </div>
                         </div>
                     </Link>
-                    <Link to="/#"  className="index-card">
+                    <Link to="/#" className="index-card">
                         <div className="grid-x grid-margin-x">
                             <div className="medium-4 cell">
                                 <img src="https://www.labconco.com/images/cms/wide-med/brent-griffith-3d-lab.png" />
@@ -283,9 +295,42 @@ function cardNew() {
     );
 }
 
+function newsService(cardNew: NewData) {
+    console.log("img new", cardNew.imageurl);
+    return (
+        <Fragment>
+            <Link to={`/news/${cardNew.newsId}`} className="index-card">
+                <div className="grid-x grid-margin-x">
+                    <div className="medium-4 cell">
+                        <img src={cardNew.imageurl} />
+                    </div>
+                    <div className="medium-8 cell">
+                        <h4>{cardNew.title}</h4>
+                        <div>
+                            <p
+                                style={{
+                                    whiteSpace: "nowrap",
+                                    textOverflow: "ellipsis",
+                                    overflow: "hidden",
+                                }}
+                                dangerouslySetInnerHTML={{
+                                    __html: cardNew.content || "",
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </Link>
+        </Fragment>
+    );
+}
+
 export default function HomePage() {
     const PRODUCT_API = `/product/list-products`;
+    const NEWS_API = "/news/list-news";
     const numberRenderProduct = 4;
+    const numberRenderNews = 5;
+
     return (
         <Fragment>
             <HeaderLayout />
@@ -309,7 +354,55 @@ export default function HomePage() {
                         {service()}
                     </section>
                     <section className="article border-top" id="feeds">
-                        {cardNew()}
+                        <ul
+                            className="tabs"
+                            data-tabs=""
+                            id="news-tabs"
+                            role="tablist"
+                        >
+                            <li
+                                className="tabs-title is-active"
+                                role="presentation"
+                            >
+                                <Link
+                                    to="#"
+                                    data-tabs-target="featured-news"
+                                    aria-selected="true"
+                                    role="tab"
+                                    aria-controls="featured-news"
+                                    id="featured-news-label"
+                                >
+                                    News
+                                </Link>
+                            </li>
+                            <li className="tabs-title" role="presentation">
+                                <Link
+                                    to="#"
+                                    data-tabs-target="featured-events"
+                                    role="tab"
+                                    aria-controls="featured-events"
+                                    aria-selected="false"
+                                    id="featured-events-label"
+                                >
+                                    Events
+                                </Link>
+                            </li>
+                        </ul>
+
+                        <div className="tabs-content">
+                            <div
+                                className="tabs-panel is-active"
+                                id="feature-news"
+                            >
+                                <h2>News</h2>
+                                <hr></hr>
+                                <CardView
+                                    cardView={newsService}
+                                    urlApi={NEWS_API}
+                                    lengthRender={numberRenderNews}
+                                />
+                            </div>
+                        </div>
                     </section>
                 </div>
             </div>

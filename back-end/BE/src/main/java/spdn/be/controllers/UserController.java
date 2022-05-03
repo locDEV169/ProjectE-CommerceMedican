@@ -9,9 +9,7 @@ import spdn.be.dto.UserDto;
 import spdn.be.entity.User;
 import spdn.be.exception.ErrorMessages;
 import spdn.be.exception.RequestException;
-import spdn.be.payload.request.AddressRequest;
-import spdn.be.payload.response.AddressResponse;
-
+import spdn.be.payload.response.UserInfoResponse;
 import spdn.be.repository.UserRepository;
 import spdn.be.sercurity.services.UserService;
 
@@ -58,19 +56,6 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             throw new RequestException((ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessages()));
-        }
-    }
-    @PostMapping("/add-address/{id}")
-    public ResponseEntity<?> addAddress(@RequestBody AddressRequest newAddress ,@PathVariable Long id){
-        try {
-
-
-            AddressResponse returnValue=userService.addAddress(id,newAddress);
-            return ResponseEntity.status(HttpStatus.OK).body(returnValue);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new RequestException(e.getMessage());
         }
     }
 
