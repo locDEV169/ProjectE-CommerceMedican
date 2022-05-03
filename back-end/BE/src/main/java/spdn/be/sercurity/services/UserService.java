@@ -9,4 +9,5 @@ import spdn.be.payload.response.UserInfoResponse;
 public interface UserService {
     UserDto updateUser (UserDto user , Long id);
     AddressResponse addAddress(Long id , AddressRequest addressRequest);
+    void changeUserPassword1(String   name, String newpassword,String oldpassword);
 }

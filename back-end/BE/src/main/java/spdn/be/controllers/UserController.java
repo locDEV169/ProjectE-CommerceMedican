@@ -9,10 +9,14 @@ import spdn.be.dto.UserDto;
 import spdn.be.entity.User;
 import spdn.be.exception.ErrorMessages;
 import spdn.be.exception.RequestException;
+import spdn.be.payload.request.AddressRequest;
+import spdn.be.payload.response.AddressResponse;
+import spdn.be.payload.response.MessageResponse;
 import spdn.be.payload.response.UserInfoResponse;
 import spdn.be.repository.UserRepository;
 import spdn.be.sercurity.services.UserService;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -58,5 +62,30 @@ public class UserController {
             throw new RequestException((ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessages()));
         }
     }
+    @PostMapping("/add-address/{id}")
+    public ResponseEntity<?> addAddress(@RequestBody AddressRequest newAddress , @PathVariable Long id){
+        try {
 
+
+            AddressResponse returnValue=userService.addAddress(id,newAddress);
+            return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new RequestException(e.getMessage());
+        }
+    }
+    @PutMapping("/changepass-user")
+    public ResponseEntity Changepassword(@RequestParam("password") String password,
+                                         @RequestParam("oldpassword") String oldPassword,
+                                         Principal principal) {
+        String user = principal.getName();
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("User is not found "));
+        }
+
+        userService.changeUserPassword1(user, password, oldPassword);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Change pass complete"));
+    }
 }
