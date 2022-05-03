@@ -181,9 +181,6 @@ export default function HeaderLayout() {
                                         <Link
                                             to="/profile"
                                             id="user-nav-account"
-                                            // onClick={(events) =>
-                                            //     events.preventDefault()
-                                            // }
                                         >
                                             Hi,{getUserName}
                                         </Link>
@@ -214,9 +211,6 @@ export default function HeaderLayout() {
                     </Link>
                     <ul className="menu float-right" id="top-nav">
                         <li>
-                            <a href="/">Categories</a>
-                        </li>
-                        <li>
                             <a onClick={() => setIsLoading(!isLoading)}>
                                 Products
                             </a>
@@ -230,6 +224,9 @@ export default function HeaderLayout() {
                         </li>
                         <li>
                             <a href="/services">Services</a>
+                        </li>
+                        <li>
+                            <a href="/news">News</a>
                         </li>
                         <li>
                             <a href="/#">
