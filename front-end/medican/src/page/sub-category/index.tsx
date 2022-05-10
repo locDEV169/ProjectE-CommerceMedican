@@ -97,13 +97,16 @@ function ListCatalogView(listData: Catalog) {
 
 function ProductView(listData: any) {
     const getImage = listData.imageSub;
-    const [state, setState] = useState<any>({ dataSource: [] });
+    const [state, setState] = useState<any>({ dataSource: [], dataProduct: [] });
     const [paths, setPaths] = useState<{ key: any; title: any }[]>([]);
     const history = useHistory();
+    const LINK_URL = history.location.pathname
+    const nameSubCategory = LINK_URL.split('/')[2]
+    console.log(makeTitle(nameSubCategory))
 
     async function getDataList() {
         try {
-            const response = await api.get(`/subcategory/get-products-bysub/}`);
+            const response = await api.get(`/subcategory/get-products-bysub/${makeTitle(nameSubCategory)}`);
             const { data: dataSource } = response;
             console.log(response)
             setState((prev: any) => ({ ...prev, dataSource }));

@@ -50,27 +50,28 @@ export default function ProductList() {
     };
     // function delete
     const onDelete = (id: number) => {
+        console.log("id delete" , id)
         const { confirm } = Modal;
         new Promise((resolve, reject) => {
             confirm({
                 title: "Are you sure you want to Delete ?",
                 onOk: () => {
                     resolve(true);
-                    api.delete(`/product/delete-product/${id}`)
-                        .then((res) => {
-                            notification.success({
-                                message: "Product has been delete Successfully",
-                                icon: (
-                                    <SmileOutlined
-                                        style={{ color: "#108ee9" }}
-                                    />
-                                ),
-                            });
-                            setTimeout(function () {
-                                history.go(0);
-                            }, 1000);
-                        })
-                        .catch((err) => handleError(err));
+                    // api.delete(`/product/delete-product/${id}`)
+                    //     .then((res) => {
+                    //         notification.success({
+                    //             message: "Product has been delete Successfully",
+                    //             icon: (
+                    //                 <SmileOutlined
+                    //                     style={{ color: "#108ee9" }}
+                    //                 />
+                    //             ),
+                    //         });
+                    //         setTimeout(function () {
+                    //             history.go(0);
+                    //         }, 1000);
+                    //     })
+                    //     .catch((err) => handleError(err));
                 },
                 onCancel: () => {
                     reject(true);
