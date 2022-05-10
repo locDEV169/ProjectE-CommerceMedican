@@ -14,7 +14,7 @@ export default function NewUser() {
     const [form] = Form.useForm();
 
     const onFinish = (values) => {
-        api.post("auth/signup", { ...values, role: [values.role] })
+        api.post("auth/signup", { ...values, role: values.role })
             .then((res) => {
                 message.success("User registered successfully!");
                 window.location.href = '/'
@@ -175,7 +175,7 @@ export default function NewUser() {
                         <Select placeholder="Select a role for User" allowClear>
                             <Option value="admin">Admin</Option>
                             <Option value="user">User</Option>
-                            <Option value="ROLE_USER, ROLE_ADMIN">Admin, User</Option>
+                            <Option value="admin, user">Admin, User</Option>
                         </Select>
                     </Form.Item>
                 </div>

@@ -63,7 +63,7 @@ export default function User() {
         })
             .then((res) => {
                 notification.success({
-                    message: "Product has been added Successfully",
+                    message: "User has been updated Successfully",
                     icon: <SmileOutlined style={{ color: "#108ee9" }} />,
                 });
 

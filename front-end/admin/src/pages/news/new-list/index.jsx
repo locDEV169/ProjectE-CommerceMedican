@@ -103,7 +103,7 @@ export default function NewsList() {
         {
             field: "title",
             headerName: "Title",
-            width: 200,
+            width: 500,
             renderCell: (params) => {
                 return (
                     <div className="userListUser">
