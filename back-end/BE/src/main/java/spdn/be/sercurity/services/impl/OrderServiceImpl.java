@@ -1,5 +1,6 @@
 package spdn.be.sercurity.services.impl;
 
+import lombok.ToString;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -260,7 +261,7 @@ public class OrderServiceImpl implements OrderService {
     public Address findAddressById(Long shippingAddress) {
         Optional<Address> addressEntity = addressRepository.findByAddressId(shippingAddress);
 
-        if (addressEntity.isPresent()) {
+        if (addressEntity == null   ) {
             throw new RequestException(ErrorMessages.INVALID_ADDRESS.getErrorMessages());
         }
 
@@ -270,8 +271,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Cart findCartByUserId(Long userId) {
             Optional<Cart> cartEntity = cartRepository.findByUserId(userId, "open");
-
-        if (cartEntity.isPresent()) {
+        System.out.println(cartEntity);
+        if (cartEntity == null) {
             throw new RequestException(ErrorMessages.CART_ALREADY_CHECKED_OUT.getErrorMessages());
         }
         return cartEntity.get();

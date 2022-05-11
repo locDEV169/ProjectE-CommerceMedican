@@ -41,16 +41,15 @@ public class CartController {
 
 
     }
-    @GetMapping("/get-caritem/{id}")
-    public ResponseEntity<List<CartItem>> getCartItems(@PathVariable Long id){
+    @GetMapping("/get-cartitem/{id}")
+    public List<CartItem> getCartItems(@PathVariable Long id){
 
-        List<CartItem> cartItemEntityList = cartService.getCartItems(id);
+       return    cartService.getCartItems(id);
 
-        return new ResponseEntity<>(cartItemEntityList,HttpStatus.OK);
     }
     @DeleteMapping("/remove/{id}/{productId}")
     public void removeProductFromCart(@PathVariable Long id
-            ,@PathVariable(value = "pid") Long productId){
+            ,@PathVariable(value = "id") Long productId){
         if (productId == null ){
             throw new RequestException(ErrorMessages.CART_PRODUCTID_NOTFOUND.getErrorMessages());}
 
