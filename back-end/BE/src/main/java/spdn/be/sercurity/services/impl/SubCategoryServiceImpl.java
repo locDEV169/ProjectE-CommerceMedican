@@ -46,5 +46,20 @@ public class SubCategoryServiceImpl implements SubCategoryService {
         return subCategoryRepository.findById(id).get();
     }
 
+    @Override
+    public List<Product> getproductsByIdOfSub(Long id) {
+        List<SubCategory> subCategoryEntity = subCategoryRepository.findAll();
+        List<Product> productEntity = new ArrayList<>();
+        for (SubCategory i : subCategoryEntity) {
+            if (i.getSubCategoryId().equals(id)) {
+                System.out.println("If Loop");
+                for (Product product : i.getProducts()) {
+                    productEntity.add(product);
+                }
+            }
+        }
+        return productEntity;
+    }
+
 
 }

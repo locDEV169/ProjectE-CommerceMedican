@@ -11,4 +11,5 @@ public interface SubCategoryService {
      List<Product> getproducts(String name);
      void createSub(SubCategory subCategory);
      SubCategory findSubcategoryById(Long id);
+     List<Product> getproductsByIdOfSub(Long id);
 }
