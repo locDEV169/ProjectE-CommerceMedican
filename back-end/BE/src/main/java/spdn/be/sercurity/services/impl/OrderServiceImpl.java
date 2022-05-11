@@ -125,7 +125,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDetails getOrderById(Long id, Long orderId) {
         Optional<Order> orderEntity = orderRepository.findByOrderId(id);
-        if (orderEntity.isPresent())
+        if (orderEntity == null )
             throw new RequestException(ErrorMessages.INVALID_ORDERID.getErrorMessages());
         if (orderEntity.get().getCartEntity().getUser().getId() != id)
             throw new RequestException(ErrorMessages.INVALID_USER_ORDER.getErrorMessages());
@@ -163,7 +163,7 @@ public class OrderServiceImpl implements OrderService {
         OrderResponse orderResponsemodel = new OrderResponse();
 
         Optional<Order> orderEntity = orderRepository.findByOrderId(orderId);
-        if (orderEntity.isPresent())
+        if (orderEntity == null )
             throw new RequestException(ErrorMessages.INVALID_ORDERID.getErrorMessages());
         if (orderEntity.get().getOrderStatus().equals(status1))
             throw new RequestException(ErrorMessages.SAME_STATUS.getErrorMessages());
@@ -233,7 +233,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order cancelOrder(Long orderId, Long userId) {
         Optional<Order> orderEntity = orderRepository.findByOrderId(orderId);
-        if (orderEntity.isPresent())
+        if (orderEntity == null)
             throw new RequestException(ErrorMessages.INVALID_ORDERID.getErrorMessages());
         if (orderEntity.get().getCartEntity().getUser().getId() != userId)
             throw new RequestException(ErrorMessages.INVALID_USER_ORDER.getErrorMessages());
