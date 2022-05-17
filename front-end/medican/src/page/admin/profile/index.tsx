@@ -85,7 +85,6 @@ export default function EmailPage() {
     };
 
     const onSubmitPassword = (values: any) => {
-        console.log(values, getToken, getCookie.username);
         let config = {
             headers: {
                 Authorization: "Bearer " + getToken,
@@ -106,7 +105,6 @@ export default function EmailPage() {
     };
 
     const handleError = (err: ErrorType) => {
-        console.log(err);
         const status = err.response?.status;
         switch (status) {
             case 400:

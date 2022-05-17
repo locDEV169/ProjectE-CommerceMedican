@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import "react-slideshow-image/dist/styles.css";
 import api from "../../../constants/api";
 import SiderBarNewPage from "../../admin/layouts/slider-bar-news";
+import { Link } from "react-router-dom";
 
 interface Path {
     id: string;
@@ -80,6 +81,17 @@ export default function DetailNewsPage() {
                                     }}
                                 ></span>
                             </div>
+                            <table className="stepper">
+                                <tbody>
+                                    <tr>
+                                        <td className="text-center">
+                                            <button>
+                                                <Link to="/news">News</Link>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

@@ -9,8 +9,7 @@ import { Link } from "react-router-dom";
 import Card from "../../components/card";
 import { SLUG_URL } from "../../constants/slug";
 import "./style.scss";
-// import CardView from '../../components/card-view'
-// import { SLUG_URL } from '../../constants/slug'
+import { Button } from 'antd';
 interface CategoryData {
     categoryId?: string | number;
     categoryName?: string;
@@ -31,7 +30,13 @@ function MenuView(categoryData: CategoryData) {
 function SubCategoriView(subCategoryData: SubCategoryData) {
     return (
         <li key={subCategoryData.subCategoryId}>
-            <Link to={`/sub-categories/${SLUG_URL(subCategoryData.subCategoryName)}/${subCategoryData.subCategoryId}`}>{subCategoryData.subCategoryName}</Link>
+            <Link
+                to={`/sub-categories/${SLUG_URL(
+                    subCategoryData.subCategoryName
+                )}/${subCategoryData.subCategoryId}`}
+            >
+                {subCategoryData.subCategoryName}
+            </Link>
         </li>
     );
 }
@@ -41,11 +46,6 @@ export default function HeaderLayout() {
     const SUB_CATEGORIES_API = `/subcategory/get-allsub`;
     const [isLoading, setIsLoading] = useState(false);
     const getUserName = Cookies.get("username");
-
-    // useEffect(() => {
-    //     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    //     {Cookies.get("username") ? message.success("Login Successful") : ""}
-    // }, []);
 
     const logOut = () => {
         Cookies.remove("username");
@@ -241,7 +241,7 @@ export default function HeaderLayout() {
                             <a href="/news">News</a>
                         </li>
                         <li>
-                            <a href="/#">
+                            <a>
                                 <i className="fa fa-search" />
                             </a>
                         </li>
@@ -259,13 +259,19 @@ export default function HeaderLayout() {
                             <div className="cell auto">
                                 <ul className="vertical menu">
                                     <li className="menu-text">Categories</li>
-                                    <Card cardView={MenuView} urlApi={CATEGORIES_API} />
+                                    <Card
+                                        cardView={MenuView}
+                                        urlApi={CATEGORIES_API}
+                                    />
                                 </ul>
                             </div>
                             <div className="cell auto">
                                 <ul className="vertical menu">
                                     <li className="menu-text">Sub-Category</li>
-                                    <Card cardView={SubCategoriView} urlApi={SUB_CATEGORIES_API} />
+                                    <Card
+                                        cardView={SubCategoriView}
+                                        urlApi={SUB_CATEGORIES_API}
+                                    />
                                 </ul>
                             </div>
                         </div>
