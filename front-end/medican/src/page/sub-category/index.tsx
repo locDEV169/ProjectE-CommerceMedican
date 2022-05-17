@@ -14,17 +14,18 @@ import api from "../../constants/api";
 import { makeTitle, SLUG_URL } from "../../constants/slug";
 import ListView from "./../../components/list-view/index";
 import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Fragment } from "react";
 
-interface Product {
-    id?: number | string;
-    name?: string;
-    description?: string;
-    image?: string;
-    feature?: string;
-    note?: string;
-    referenceLink?: string;
+interface Path {
+    id: string;
 }
 
+interface Attribute {
+    id?: number;
+    name?: string;
+    country?: String;
+};
 interface Catalog {
     id?: number | string;
     name?: string;
@@ -33,15 +34,30 @@ interface Catalog {
     attribute?: Attribute[];
     value?: Value[];
 }
-type Attribute = {
-    id: number;
-    name: string;
-};
 type Value = {
     id: number;
     name: string;
     attribute: Attribute;
 };
+
+interface Product {
+    productId?: number;
+    productName?: string;
+    image?: string;
+    imageProduct?: string;
+    catalog?: any;
+    estimatedShippingWeight?: number;
+    estimatedShippingWeightMetric?: number;
+    dimensions?: string;
+    dimensionsMetric?: string;
+    electrical?: string;
+    description?: string;
+    feature?: string;
+    attribute?: any;
+    products?: { referenceLink?: string };
+    price?: number;
+}
+
 const { Panel } = Collapse;
 
 const PRODUCT_CATALOG_API = `subcategory`;
@@ -97,26 +113,26 @@ function ListCatalogView(listData: Catalog) {
 
 function ProductView(listData: any) {
     const getImage = listData.imageSub;
-    const [state, setState] = useState<any>({ dataSource: [], dataProduct: [] });
+    const [state, setState] = useState<any>({
+        dataSource: [],
+        dataProduct: [],
+    });
     const [paths, setPaths] = useState<{ key: any; title: any }[]>([]);
-    const history = useHistory();
-    const LINK_URL = history.location.pathname
-    const nameSubCategory = LINK_URL.split('/')[2]
-    console.log(makeTitle(nameSubCategory))
+    const path: Path = useParams();
 
     async function getDataList() {
         try {
-            const response = await api.get(`/subcategory/get-products-bysub/${makeTitle(nameSubCategory)}`);
+            const response = await api.get(
+                `/subcategory/get-products-by-sub-id/${path.id}`
+            );
             const { data: dataSource } = response;
-            console.log(response)
-            setState((prev: any) => ({ ...prev, dataSource }));
+
+            setState((prev: any) => ({ ...prev, dataProduct: dataSource }));
         } catch (err) {}
     }
-
+    console.log(state);
     useEffect(() => {
-       
         getDataList();
-        
     }, []);
 
     return (
@@ -228,7 +244,122 @@ function ProductView(listData: any) {
                     listView={ListCatalogView}
                 />
             </section>
-
+            <section className="article" id="product-facets">
+                <div
+                    className="grid-x grid-margin-x"
+                    id="faceted_search_for_master"
+                >
+                    <div className="large-3 cell">
+                        <div className="facet_list_available">
+                            <div className="facet_head">
+                                Filter these products
+                            </div>
+                            <ul className="menu vertical facet_available">
+                                <li className="menu-text">Built-in Options</li>
+                                <li className="menu-text">National</li>
+                                <li>
+                                    <Link to="/#" rel="#">
+                                        U.S. and Canada <span>(6)</span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/#" rel="#">
+                                        International <span>(6)</span>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="large-9 cell">
+                        <div className="facet_list_applied">
+                            {" "}
+                            <div className="facet_applied"> </div>{" "}
+                        </div>
+                        <div className="facet_result">
+                            <div className="facet_pagination_top">
+                                {" "}
+                                <p className="pagination_result">
+                                    Showing 1 - {state.dataProduct.length} of{" "}
+                                    {state.dataProduct.length} Results
+                                </p>{" "}
+                            </div>
+                            <div className="grid-x grid-margin-x small-up-1 medium-up-2 large-up-2 xlarge-up-3">
+                                {state.dataProduct.map(
+                                    (item: Product, key: Number) => (
+                                        <Fragment key={item.productId}>
+                                            <div className="cell">
+                                                <div className="product-thumb-2 subproduct">
+                                                    <h5>
+                                                        <Link
+                                                            to={`/products/${SLUG_URL(
+                                                                item.productName ||
+                                                                    ""
+                                                            )}/${
+                                                                item.productId
+                                                            }`}
+                                                        >
+                                                            {" "}
+                                                            {
+                                                                item.productName
+                                                            }{" "}
+                                                        </Link>
+                                                    </h5>
+                                                    <div className="grid-x">
+                                                        <div className="shrink cell">
+                                                            <Link to="https://www.labconco.com/product/2-purifier-filtered-pcr-enclosure-with-uv-light-and-protection-panel/1590">
+                                                                <img
+                                                                    alt="Filtered PCR Enclosure"
+                                                                    src={
+                                                                        item.imageProduct
+                                                                    }
+                                                                />
+                                                            </Link>
+                                                        </div>{" "}
+                                                        <div className="auto cell">
+                                                            <p>
+                                                                <b>
+                                                                    Price:{"  "}
+                                                                </b>
+                                                                {item.price} USD
+                                                            </p>
+                                                            <div className="product-comparison-check show-for-medium">
+                                                                <input
+                                                                    className="product-comparison-checkbox"
+                                                                    id="compare-product-1590"
+                                                                    type="checkbox"
+                                                                    value="1590"
+                                                                />{" "}
+                                                                <label className="compare-product">
+                                                                    Compare
+                                                                </label>
+                                                            </div>
+                                                        </div>{" "}
+                                                    </div>
+                                                    <ul>
+                                                    <li>
+                                                        <strong>
+                                                            Built-in Options:{" "}
+                                                        </strong>
+                                                        UV Light
+                                                    </li>
+                                                    <li>
+                                                        <strong>Nominal Width: </strong>
+                                                        2'
+                                                    </li>
+                                                    <li>
+                                                        <strong>Region: </strong>{item.attribute.country}
+                                                    </li>
+                                                </ul>
+                                                </div>
+                                            </div>
+                                        </Fragment>
+                                    )
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <section className="article  c-videos">
                 <div className="grid-x align-center">
                     <div className="large-8  cell text-center ">
