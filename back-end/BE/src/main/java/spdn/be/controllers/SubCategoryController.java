@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/subcategory")
-public class SubCategoryController {
+public class  SubCategoryController {
     @Autowired
     private SubCategoryService subCategoryService;
 
