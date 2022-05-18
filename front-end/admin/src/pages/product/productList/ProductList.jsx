@@ -50,6 +50,7 @@ export default function ProductList() {
     };
     // function delete
     const onDelete = (id: number) => {
+        console.log("id delete" , id)
         const { confirm } = Modal;
         new Promise((resolve, reject) => {
             confirm({

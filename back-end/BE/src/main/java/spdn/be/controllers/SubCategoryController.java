@@ -23,7 +23,7 @@ public class  SubCategoryController {
     }
 
     @GetMapping("/get-products-bysub/{name}")
-    public List<Product> getProduts(@PathVariable("name") String name) {
+    public List<Product> getProducts(@PathVariable("name") String name) {
         return subCategoryService.getproducts(name);
     }
 
@@ -38,5 +38,9 @@ public class  SubCategoryController {
          SubCategory returnValue = subCategoryService.findSubcategoryById(subcategoryId);
 
          return new ResponseEntity<>(returnValue,HttpStatus.OK);
+    }
+    @GetMapping("get-products-by-sub-id/{id}")
+    public List<Product> getProductBySubid(@PathVariable(name = "id" )Long subCategoryId) {
+        return subCategoryService.getproductsByIdOfSub(subCategoryId);
     }
 }

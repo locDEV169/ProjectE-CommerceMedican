@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import spdn.be.entity.Cart;
 import spdn.be.entity.CartItem;
 import spdn.be.entity.Product;
+import spdn.be.entity.SubCategory;
 import spdn.be.exception.ErrorMessages;
 import spdn.be.exception.RequestException;
 import spdn.be.repository.CartItemRepository;
@@ -13,6 +14,7 @@ import spdn.be.repository.ProductRepository;
 import spdn.be.repository.UserRepository;
 import spdn.be.sercurity.services.CartService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -129,5 +131,6 @@ public class CartServiceImpl  implements CartService {
     public List<CartItem> getCartItems(Long id) {
         Cart cartEntity= cartRepository.getCartByUserId(id,"open");
         return cartEntity.getCartItemList();
+
     }
 }

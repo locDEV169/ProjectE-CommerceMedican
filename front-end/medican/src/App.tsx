@@ -3,14 +3,16 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import { MainRoutes } from "./routes";
 
+
 function App() {
+
     return (
-        <BrowserRouter>
-            {/* <MainLayout>
+            <BrowserRouter>
+                {/* <MainLayout>
                 <MainRoutes />
             </MainLayout> */}
-            <MainRoutes />
-        </BrowserRouter>
+                <MainRoutes />
+            </BrowserRouter>
     );
 }
 

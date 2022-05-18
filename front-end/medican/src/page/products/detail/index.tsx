@@ -6,15 +6,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/role-has-required-aria-props */
 /* eslint-disable jsx-a11y/iframe-has-title */
+import { SmileOutlined } from "@ant-design/icons";
+import { default as Button } from "antd/es/button";
+import "antd/es/button/style/index.css";
 import { default as Collapse } from "antd/es/collapse";
 import "antd/es/collapse/style/index.css";
+import { default as InputNumber } from "antd/es/input-number";
+import "antd/es/input-number/style/index.css";
+import { default as Modal } from "antd/es/modal";
+import "antd/es/modal/style/css";
+import { default as notification } from "antd/es/notification";
 import "antd/es/notification/style/index.css";
+import Cookies from "js-cookie";
 import { default as React, useEffect, useState } from "react";
 import ReactHtmlParser from "react-html-parser";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import DetailView from "../../../components/detail-view";
-import "./style.scss";
 import api from "../../../constants/api";
+import "./style.scss";
 
 type Value = {
     id: number;
@@ -48,6 +57,7 @@ interface Attribute {
 }
 interface State {
     dataAttribute: Attribute[];
+    quantity?: number;
 }
 
 interface listData {
@@ -68,13 +78,27 @@ interface listData {
     price?: number;
 }
 
+interface Cookies {
+    id?: Number | String;
+    username?: String;
+    email?: String;
+    password?: String;
+    fullName?: String;
+    address?: String;
+    phoneNumber?: Number;
+    roles?: String[];
+}
+
 export function ProductDetail(listData: listData) {
     const getImage = listData.image?.split(",") || [];
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [state, setState] = useState<State>({
         dataAttribute: [],
+        quantity: 0,
     });
-
+    const history = useHistory();
+    const getUserCookie: Cookies = JSON.parse(Cookies.get("user")! || "0");
+   
     async function getDataList() {
         try {
             const response = await api.get(
@@ -88,6 +112,44 @@ export function ProductDetail(listData: listData) {
     useEffect(() => {
         getDataList();
     }, [listData.productId]);
+
+    const onChange = (value: number) => {
+        setState((prev) => ({ ...prev, quantity: value }));
+    };
+
+    const handleQuantity = (value: any) => {
+        setState((prev) => ({ ...prev, quantity: value + 1 }));
+        const { confirm } = Modal;
+        const qty = state.quantity! > 0 ? state.quantity :  1
+        new Promise((resolve, reject) => {
+            confirm({
+                title: "Are you sure you want to add cart ?",
+                content: `U want to add product: ${listData.productName}？`,
+                onOk: () => {
+                    resolve(true);
+                    api.put(`/cart/add/${getUserCookie.id}/${listData.productId}?quantity=${qty}`)
+                        .then((res) => {
+                            notification.success({
+                                message: "Add Cart has been Successfully",
+                                icon: (
+                                    <SmileOutlined
+                                        style={{ color: "#108ee9" }}
+                                    />
+                                ),
+                            });
+                            setTimeout(function () {
+                                history.go(0);
+                            }, 1000);
+                        })
+                        // .catch((err) => handleError(err));
+                    // history.push('/quote')
+                },
+                onCancel: () => {
+                    reject(true);
+                },
+            });
+        });
+    };
 
     return (
         <>
@@ -156,29 +218,33 @@ export function ProductDetail(listData: listData) {
                     <div className="large-8 cell">
                         <div className="grid-x  grid-padding-y align-middle">
                             <div className="large-3 cell">
-                                <strong>Catalog #:</strong> {listData.productId}
+                                <strong>Price:</strong> {listData.price} USD
                             </div>
                             <div className="large-3 cell">
                                 <strong>Qty:</strong>
-                                <input
+                                <InputNumber
                                     className="c-quote__qty"
-                                    type="text"
-                                    size={1}
-                                    maxLength={3}
+                                    id="qty"
+                                    min={1}
+                                    // max={10}
                                     name="qty"
                                     defaultValue={1}
-                                    id="qty"
+                                    onChange={onChange}
+                                    style={{ margin: "10px" }}
                                 />
                             </div>
                             <div className="large-6 cell grid-x">
                                 <div className="large-6 cell">
-                                    <Link
-                                        to="/quote"
+                                    <Button
+                                        onClick={(e) => handleQuantity(e)}
+                                        // to="/quote"
+                                        // to="#"
                                         className="button alert expanded c-quote__button"
-                                        id="product-quote-button"
+                                        id="qty"
+                                        style={{height: '50px'}}
                                     >
                                         Request Quote
-                                    </Link>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -186,10 +252,6 @@ export function ProductDetail(listData: listData) {
                             <div className="large-6 cell">
                                 <h3>Attribute</h3>
                                 <ul className="no-bullet spec-list">
-                                    <li>
-                                        <strong>Price:</strong> {listData.price}{" "}
-                                        USD
-                                    </li>
                                     <li>
                                         <strong>National:</strong>{" "}
                                         {listData.attribute?.country}
