@@ -98,7 +98,7 @@ export function ProductDetail(listData: listData) {
     });
     const history = useHistory();
     const getUserCookie: Cookies = JSON.parse(Cookies.get("user")! || "0");
-   
+
     async function getDataList() {
         try {
             const response = await api.get(
@@ -120,29 +120,30 @@ export function ProductDetail(listData: listData) {
     const handleQuantity = (value: any) => {
         setState((prev) => ({ ...prev, quantity: value + 1 }));
         const { confirm } = Modal;
-        const qty = state.quantity! > 0 ? state.quantity :  1
+        const qty = state.quantity! > 0 ? state.quantity : 1;
         new Promise((resolve, reject) => {
             confirm({
                 title: "Are you sure you want to add cart ?",
                 content: `U want to add product: ${listData.productName}？`,
                 onOk: () => {
                     resolve(true);
-                    api.put(`/cart/add/${getUserCookie.id}/${listData.productId}?quantity=${qty}`)
-                        .then((res) => {
-                            notification.success({
-                                message: "Add Cart has been Successfully",
-                                icon: (
-                                    <SmileOutlined
-                                        style={{ color: "#108ee9" }}
-                                    />
-                                ),
-                            });
-                            setTimeout(function () {
-                                history.go(0);
-                            }, 1000);
-                        })
-                        // .catch((err) => handleError(err));
-                    // history.push('/quote')
+                    Cookies.get("user") == null
+                        ? (window.location.href = "/login") 
+                        : api.put(
+                        `/cart/add/${getUserCookie.id}/${listData.productId}?quantity=${qty}`
+                    ).then((res) => {
+                        notification.success({
+                            message: "Add Cart has been Successfully",
+                            icon: (
+                                <SmileOutlined style={{ color: "#108ee9" }} />
+                            ),
+                        });
+                        setTimeout(function () {
+                            history.go(0);
+                        }, 1000);
+                    });
+                    // .catch((err) => handleError(err));
+                    history.push('/quote')
                 },
                 onCancel: () => {
                     reject(true);
@@ -241,7 +242,7 @@ export function ProductDetail(listData: listData) {
                                         // to="#"
                                         className="button alert expanded c-quote__button"
                                         id="qty"
-                                        style={{height: '50px'}}
+                                        style={{ height: "50px" }}
                                     >
                                         Request Quote
                                     </Button>

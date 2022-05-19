@@ -15,6 +15,7 @@ const DetailNewsPage = React.lazy(() => import("./../page/news/detail-news"));
 const InformationPage = React.lazy(() => import("./../page/admin/information"));
 const CheckoutPage = React.lazy(() => import("./../page/checkout"));
 const SubCategoryPage = React.lazy(() => import("./../page/sub-category"));
+const SearchView = React.lazy(() => import("./../page/search"));
 
 export function MainRoutes() {
   return (
@@ -34,6 +35,7 @@ export function MainRoutes() {
           <Route exact path='/sub-categories/:slug/:id' component={SubCategoryPage} />
           <Route exact path="/news" component={NewsPage} />
           <Route exact path="/news/:id" component={DetailNewsPage} />
+          <Route exact path='/search/:slug/' component={SearchView} />
         </MainLayout>
         {/* <Route path='*' exact component={ErrorPage} /> */}
       </Switch>

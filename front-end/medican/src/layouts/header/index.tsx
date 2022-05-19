@@ -3,13 +3,19 @@
 /* eslint-disable jsx-a11y/role-supports-aria-props */
 /* eslint-disable jsx-a11y/alt-text */
 import "antd/dist/antd.css";
+import { default as Button } from "antd/es/button";
+import "antd/es/button/style/index.css";
+import { default as Form } from "antd/es/form";
+import "antd/es/form/style/index.css";
+import { default as Input } from "antd/es/input";
+import "antd/es/input/style/index.css";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../../components/card";
+import api from "../../constants/api";
 import { SLUG_URL } from "../../constants/slug";
 import "./style.scss";
-import { Button } from 'antd';
 interface CategoryData {
     categoryId?: string | number;
     categoryName?: string;
@@ -18,11 +24,29 @@ interface SubCategoryData {
     subCategoryId?: string | number;
     subCategoryName?: string | any;
 }
+interface Product {
+    productId?: number;
+    productName?: string;
+    image?: string;
+    imageProduct?: string;
+    catalog?: any;
+    estimatedShippingWeight?: number;
+    estimatedShippingWeightMetric?: number;
+    dimensions?: string;
+    dimensionsMetric?: string;
+    electrical?: string;
+    description?: string;
+    feature?: string;
+    products?: { referenceLink?: string };
+    price?: number;
+}
+interface State {
+    dataProduct: Product[];
+}
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function MenuView(categoryData: CategoryData) {
     return (
         <li key={categoryData.categoryId}>
-            {/* <Link to={`/category/${SLUG_URL(categoryData.name!)}/${categoryData.id}`}>{categoryData.name}</Link> */}
             <Link to={`/#`}>{categoryData.categoryName}</Link>
         </li>
     );
@@ -45,13 +69,28 @@ export default function HeaderLayout() {
     const CATEGORIES_API = `/category/get-categorys`;
     const SUB_CATEGORIES_API = `/subcategory/get-allsub`;
     const [isLoading, setIsLoading] = useState(false);
+    const [isSearch, setIsSearch] = useState(false);
     const getUserName = Cookies.get("username");
+    const [form] = Form.useForm();
+    const [state, setState] = useState<State>({
+        dataProduct: [],
+    });
 
     const logOut = () => {
         Cookies.remove("username");
         Cookies.remove("accessToken");
         Cookies.remove("user");
         window.location.href = "/logout";
+    };
+
+    const onSubmit = (values: any) => {
+        console.log(values);
+        // try {
+        //     const response = api.get(`/product/search/${values.search}`);
+        //     const { data: dataProduct } = response;
+        //     setState((prev) => ({ ...prev, dataProduct: dataProduct }));
+        // } catch (err) {}
+        api.get(`/product/search/${values.search}`).then((res) => console.log(res))
     };
 
     return (
@@ -164,7 +203,7 @@ export default function HeaderLayout() {
                                                 role="menuitem"
                                                 className="is-submenu-item is-dropdown-submenu-item"
                                             >
-                                                <a href="/cart">
+                                                <a href="/quote">
                                                     Items to Purchase: 0
                                                 </a>
                                             </li>
@@ -242,7 +281,10 @@ export default function HeaderLayout() {
                         </li>
                         <li>
                             <a>
-                                <i className="fa fa-search" />
+                                <i
+                                    className="fa fa-search"
+                                    onClick={() => setIsSearch(!isSearch)}
+                                />
                             </a>
                         </li>
                     </ul>
@@ -603,41 +645,61 @@ export default function HeaderLayout() {
                     </div>
                 </div>
             </div>
-            <div id="search-nav" className="top-nav-panel">
+            <div
+                id="search-nav"
+                className="top-nav-panel"
+                style={isSearch ? { display: "block" } : { display: "none" }}
+            >
                 <div className="row">
                     <div className="grid-x grid-margin-x">
                         <div className="large-2 large-offset-2 cell text-right">
                             <h2>Search</h2>
                         </div>
                         <div className="large-4 cell">
-                            <form
-                                method="get"
-                                action="/search/search-results.php"
+                            <Form
+                                onFinish={onSubmit}
+                                form={form}
+                                className="input-group"
                             >
-                                <div className="input-group">
-                                    <input
+                                <Form.Item
+                                    name="search"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message:
+                                                "Please input your search Product name!",
+                                        },
+                                        {
+                                            pattern:
+                                                /^[a-zA-Z0-9@~`!@#$%^&*()_=+\\\\';:\"\\/?>.<,-]+(([a-zA-Z ])?[a-zA-Z0-9@~`!@#$%^&*()_=+\\\\';:\"\\/?>.<,-]*)*$/,
+                                            message:
+                                                " search Product name is not valid",
+                                        },
+                                    ]}
+                                >
+                                    <Input
                                         type="text"
-                                        name="zoom_query"
-                                        maxLength={48}
-                                        placeholder="Keyword or Catalog Number"
+                                        placeholder="Enter search Product name"
                                         id="top-search-query"
-                                        className="input-group-field"
-                                        data-cmc3-omnisearch
+                                        style={{width: '320px'}}
                                     />
-                                    <div className="input-group-button">
-                                        <button
-                                            type="submit"
+                                </Form.Item>
+                                <div className="input-group-button">
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
                                             className="button"
-                                            id="top-search-submit"
+                                            htmlType="submit"
+                                            style={{width: '112px'}}
                                         >
                                             <i
                                                 className="fa fa-search"
                                                 aria-hidden="true"
                                             />
-                                        </button>
-                                    </div>
+                                        </Button>
+                                    </Form.Item>
                                 </div>
-                            </form>
+                            </Form>
                         </div>
                     </div>
                 </div>
